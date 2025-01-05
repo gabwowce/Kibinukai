@@ -19,7 +19,7 @@ export default function News() {
             <button className='inline-block pr-4'>
                 <FaTimes 
                     className="text-black hover:text-primary" 
-                    size={20} 
+                    size={15} 
                 />
             </button>
         </section>
