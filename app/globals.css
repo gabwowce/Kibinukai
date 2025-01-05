@@ -3,19 +3,87 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors */
+  --background: #FFFAF3; /* light yellow/white */
+  --primary: #FF5800; /* orange*/
+
+  --white: #FFFFFF;
+  --black: #1E1C1C;
+
+  --brown-foreground: #411A06; /* dark brown*/
+  --brown-foreground-hover: #976045; /* dark brown*/
+
+  --info-bar-background: rgb(255,88,0,0.60); /* light orange */
+  --navbar-background: rgba(255, 212, 144, 0.82); /* light yellow */
+
+  --details-background: rgba(255, 212, 144, 0.28) /* light yellow (circle)*/
+  
+  --icon-color: #411A06; /*  brown */
+  
+  /* Fonts */
+  --font-sans: 'Arial', 'Helvetica', sans-serif; /* Sans-serif fontai */
+  --font-display: 'ADLaM Display', sans-serif; /* Specialus Display fontas */
+  --font-body: 'Arimo', sans-serif; /* Body tekstui naudojamas fontas */
+
+  /* Font  sizes */
+  --font-size-h1: 2rem; /* 32px */
+  --font-size-h2: 1.5rem; /* 24px */
+  --font-size-h3: 1.25rem; /* 20px */
+  --font-size-body: 1rem; /* 16px */
+  --font-size-btn: 1rem; /* 16px */
+  
+  /* Line height */
+  --line-height-normal: 1.5; /* Standartinis line-height */
+  --line-height-tight: 1.05; /* Siauresnis line-height */
 }
 
-@media (prefers-color-scheme: dark) {
+@media screen and (min-width: 640px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-size-h1: 2.75rem; /* 44px */
+    --font-size-h2: 1.75rem; /* 28px */
+    --font-size-h3: 1.5rem; /* 24px */
+    --font-size-body: 1.125rem; /* 18px */
+    --font-size-btn: 1.125rem; /* 18px */
+  }
+}
+
+/* Papildomas stilius desktopams */
+@media screen and (min-width: 1024px) {
+  :root {
+    --font-size-h1: 3.5rem; /* 56px */
+    --font-size-h2: 2rem; /* 32px */
+    --font-size-h3: 1.75rem; /* 28px */
+    --font-size-body: 1.25rem; /* 20px */
+    --font-size-btn: 1.25rem; /* 20px */
   }
 }
 
 body {
-  color: var(--foreground);
+  color: var(--black);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+}
+
+h1{
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-tight);
+}
+
+h2{
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-tight);
+}
+
+h3{
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-tight);
+}
+
+p{
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-tight);
+}
+
+.container {
+  @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto;
 }
