@@ -11,10 +11,10 @@ export default function News() {
                     <Image 
                         src={boltIcon} 
                         alt="Bolt food icon" 
-                        className="inline-block w-[65px] md:w-[100px]  h-auto"
+                        className="inline-block w-[75px] h-auto"
                     /> 
                 </span> 
-                programėlėje
+                programėlėje!
             </p>
             <button className='inline-block pr-4'>
                 <FaTimes 

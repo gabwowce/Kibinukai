@@ -4,12 +4,12 @@ import Link from 'next/link';
 
 export default function Navbar() {
     return (
-        <section className='flex items-center justify-between bg-lightYellow py-4'>
+        <section className='flex items-center justify-between bg-lightYellow py-6'>
             <div className="container flex justify-between"> 
                 <Link href="/">
-                    <Image src={logo} alt="Kibinukai logo"/>
+                    <Image src={logo} alt="Kibinukai logo" className='w-[130px] h-auto'/>
                 </Link>
-                <nav className="flex items-center gap-6"> 
+                <nav className="flex items-center gap-8 font-semibold"> 
                     <Link href="/" className="hover:text-primary transition-colors">
                         Pagrindinis
                     </Link>

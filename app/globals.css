@@ -42,8 +42,8 @@
     --font-size-h1: 2.75rem; /* 44px */
     --font-size-h2: 1.75rem; /* 28px */
     --font-size-h3: 1.5rem; /* 24px */
-    --font-size-body: 1.125rem; /* 18px */
-    --font-size-btn: 1.125rem; /* 18px */
+    --font-size-body: 1rem; /* 16px */
+    --font-size-btn: 1rem; /* 16px */
   }
 }
 
@@ -53,8 +53,8 @@
     --font-size-h1: 3.5rem; /* 56px */
     --font-size-h2: 2rem; /* 32px */
     --font-size-h3: 1.75rem; /* 28px */
-    --font-size-body: 1.25rem; /* 20px */
-    --font-size-btn: 1.25rem; /* 20px */
+    --font-size-body: 1rem; /* 16px */
+    --font-size-btn: 1rem; /* 16px */
   }
 }
 
@@ -85,5 +85,5 @@ p{
 }
 
 .container {
-  @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto px-4 md:px-2;
+  @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto px-4 md:px-20;
 }
