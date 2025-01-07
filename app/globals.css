@@ -13,8 +13,8 @@
   --brown-foreground: #411A06; /* dark brown*/
   --brown-foreground-hover: #976045; /* dark brown*/
 
-  --info-bar-background: rgb(255,88,0,0.60); /* light orange */
-  --navbar-background: rgba(255, 212, 144, 0.82); /* light yellow */
+  --info-bar-background: rgb(255,88,0,0.50); /* light orange */
+  --navbar-background: rgba(255, 212, 144, 0.80); /* light yellow */
 
   --details-background: rgba(255, 212, 144, 0.28) /* light yellow (circle)*/
   
@@ -59,9 +59,13 @@
 }
 
 body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   color: var(--black);
-  background: var(--background);
   font-family: var(--font-body);
+
+
 }
 
 h1{
@@ -85,5 +89,12 @@ p{
 }
 
 .container {
-  @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto px-4 md:px-20;
+  @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto px-4 sm:px-20;
+}
+
+
+.home {
+
+  overflow: visible;
+  z-index:-1
 }
