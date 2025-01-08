@@ -36,6 +36,7 @@ export default function Navbar() {
                         className="hidden md:flex items-center gap-8"
                         activeRoute={activeRoute}
                         setActiveRoute={setActiveRoute}
+                        onClick={closeMenu}
                     />
                 </div>
             </div>
@@ -45,7 +46,7 @@ export default function Navbar() {
                         className="flex flex-col items-center gap-4 py-4" 
                         activeRoute={activeRoute}
                         setActiveRoute={setActiveRoute}
-                        closeMenu={closeMenu}
+                        onClick={closeMenu}
                     />
                 </div>
                 

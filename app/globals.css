@@ -13,10 +13,10 @@
   --brown-foreground: #411A06; /* dark brown*/
   --brown-foreground-hover: #976045; /* dark brown*/
 
-  --info-bar-background: rgb(255,88,0,0.30); /* light orange */
+  --info-bar-background: rgb(255,88,0,0.40); /* light orange */
 
   --special-icon: #F8B800; /* yellow */
-  --navbar-background: #fff7e6 ; /* light yellow */
+  --navbar-background: rgba(255, 222, 165, 1); /* light yellow */
 
   --details-background: rgba(255, 212, 144, 0.28) /* light yellow (circle)*/
   
