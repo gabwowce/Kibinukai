@@ -14,6 +14,8 @@
   --brown-foreground-hover: #976045; /* dark brown*/
 
   --info-bar-background: rgb(255,88,0,0.50); /* light orange */
+
+  --special-icon: #F8B800; /* yellow */
   --navbar-background: rgba(255, 212, 144, 0.80); /* light yellow */
 
   --details-background: rgba(255, 212, 144, 0.28) /* light yellow (circle)*/
@@ -64,7 +66,7 @@ body {
   padding: 0;
   color: var(--black);
   font-family: var(--font-body);
-
+  background: var(--background);
 
 }
 
@@ -97,4 +99,28 @@ p{
 
   overflow: visible;
   z-index:-1
+}
+
+/* Pagrindinis burbuliuko kursorius */
+body {
+  cursor: url('../public/assets/cursors/cursor2-small.png') 0 0, auto;
+}
+
+/* Sąveikos efektas ant nuorodų ir mygtukų */
+a:hover,
+button:hover {
+  cursor: url('../public/assets/cursors/cursor2-small.png') 0 0, pointer;
+
+}
+
+.icon{
+  @apply text-foregroundBrown hover:text-foregroundBrownHover transition-colors
+}
+
+.menu-item{
+  @apply hover:text-primary transition-colors font-semibold
+}
+
+.active {
+  @apply font-bold font-display text-primary transition-colors underline decoration-2 underline-offset-8 pb-2;
 }

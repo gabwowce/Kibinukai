@@ -7,6 +7,15 @@ export default {
   ],
   theme: {
     extend: {
+      scale: {
+        '55': '0.55', 
+        '60': '0.6', 
+        '65': '0.65', 
+        '70': '0.7', 
+        '75': '0.75', 
+        '80': '0.80', 
+        '85': '0.85', 
+      },
       colors: {
         background: "var(--background)", 
         black: "var(--black)", 
@@ -17,6 +26,7 @@ export default {
         lightOrange: "var(--info-bar-background)", 
         lightYellow: "var(--navbar-background)", 
         lighterYellow: "var(--details-background)",
+        yellow: "var(--special-icon)",
         
       },
       fontFamily: {

@@ -15,7 +15,7 @@ const Eyes = ({className}) => {
         const eyeY = rect.top + rect.height / 2;
 
         const angle = Math.atan2(mouseY - eyeY, mouseX - eyeX);
-        const distance = 20; // Pupil movement range
+        const distance = 10; // Pupil movement range
         const pupil = eye.querySelector('.pupil');
 
         pupil.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
@@ -30,11 +30,11 @@ const Eyes = ({className}) => {
   }, []);
 
   return (
-    <div className="flex gap-4">
-      <div className={`eye w-16 h-16 bg-white rounded-full relative flex justify-center items-center ${className}`}>
+    <div className={`flex gap-5 ${className}`}>
+      <div className={`eye w-12 h-12 bg-white rounded-full relative flex justify-center items-center`}>
         <div className="pupil w-7 h-7 bg-black rounded-full absolute"></div>
       </div>
-      <div className="eye w-16 h-16 bg-white rounded-full relative flex justify-center items-center">
+      <div className="eye w-12 h-12 bg-white rounded-full relative flex justify-center items-center">
         <div className="pupil w-7 h-7 bg-black rounded-full absolute"></div>
       </div>
     </div>
@@ -42,3 +42,4 @@ const Eyes = ({className}) => {
 };
 
 export default Eyes;
+ 

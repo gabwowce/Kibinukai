@@ -1,34 +1,22 @@
-import { FaFacebook, FaInstagram, FaFacebookMessenger, FaEnvelope, FaPhone } from "react-icons/fa";
+import {FaEnvelope, FaPhone } from "react-icons/fa";
+import SocialMedia from "../ui/socialMedia";
 
 export default function Info() {
     return (
-            <section aria-label="Contact information" className="bg-lightYellow">
-                <div className="bg-lightOrange border-b-2 border-white py-4"> 
+            <section aria-label="Contact information" className="hidden md:block bg-lightYellow">
+                <div className="bg-lightOrange border-b-2 border-[#FFF5F0] py-3"> 
                     <div className="container flex justify-between items-center">
                         <div className="flex items-center justify-start gap-10 font-semibold">
                             <div className="flex items-center gap-2">
-                                <FaEnvelope className="text-foregroundBrown" size={22} />
+                                <FaEnvelope className="text-primary" size={22} />
                                 <p className="pt-1">info@kibinukai.lt</p>
                             </div>
                             <div className="flex items-center gap-2">
-                                <FaPhone className="text-foregroundBrown" size={20} />
-                                <p className="pt-1">+37067273782</p>
+                                <FaPhone className="text-primary" size={20} />
+                                <p className="pt-1">+370 67273782</p>
                             </div>
                         </div>
-                        <div className="flex gap-3">
-                            <FaFacebook 
-                                className="text-foregroundBrown hover:text-foregroundBrownHover transition-colors" 
-                                size={25} 
-                            />
-                            <FaFacebookMessenger 
-                                className="text-foregroundBrown hover:text-foregroundBrownHover transition-colors" 
-                                size={25} 
-                            />
-                            <FaInstagram 
-                                className="text-foregroundBrown hover:text-foregroundBrownHover transition-colors" 
-                                size={25} 
-                            />
-                        </div>
+                        <SocialMedia/>
                     </div>
                 </div>
                 
