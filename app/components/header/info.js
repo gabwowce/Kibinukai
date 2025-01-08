@@ -8,11 +8,11 @@ export default function Info() {
                     <div className="container flex justify-between items-center">
                         <div className="flex items-center justify-start gap-10 font-semibold">
                             <div className="flex items-center gap-2">
-                                <FaEnvelope className="text-primary" size={22} />
+                                <FaEnvelope className="text-foregroundBrown" size={22} />
                                 <p className="pt-1">info@kibinukai.lt</p>
                             </div>
                             <div className="flex items-center gap-2">
-                                <FaPhone className="text-primary" size={20} />
+                                <FaPhone className="text-foregroundBrown" size={20} />
                                 <p className="pt-1">+370 67273782</p>
                             </div>
                         </div>

@@ -4,8 +4,8 @@
 
 :root {
   /* Colors */
-  --background: #FFFAF3; /* light yellow/white */
-  --primary: #FF5800; /* orange*/
+  --background: #FFFFFF; /* light yellow/white */
+  --primary: #FF6030; /* orange*/
 
   --white: #FFFFFF;
   --black: #1E1C1C;
@@ -13,10 +13,10 @@
   --brown-foreground: #411A06; /* dark brown*/
   --brown-foreground-hover: #976045; /* dark brown*/
 
-  --info-bar-background: rgb(255,88,0,0.50); /* light orange */
+  --info-bar-background: rgb(255,88,0,0.30); /* light orange */
 
   --special-icon: #F8B800; /* yellow */
-  --navbar-background: rgba(255, 212, 144, 0.80); /* light yellow */
+  --navbar-background: #fff7e6 ; /* light yellow */
 
   --details-background: rgba(255, 212, 144, 0.28) /* light yellow (circle)*/
   

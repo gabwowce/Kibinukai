@@ -1,5 +1,5 @@
 import Image from "next/image";
-import elipse from '@/public/assets/Ellipse1.png';
+import elipse from '@/public/assets/roseElipse.png';
 
 export default function Bubble(){
     return (
