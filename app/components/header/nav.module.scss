@@ -1,0 +1,8 @@
+.item{
+    @apply hover:text-outrageous-orange-400 transition-colors font-semibold text-p
+  }
+  
+.active {
+    @apply font-bold font-display text-outrageous-orange-400 transition-colors underline decoration-2 underline-offset-8 pb-2;
+}
+  

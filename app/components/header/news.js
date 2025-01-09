@@ -28,7 +28,7 @@ export default function News() {
             </p>
             <button onClick={handleClose} className='inline-block'>
                 <FaTimes 
-                    className="text-black hover:text-primary transition-colors" 
+                    className="text-black hover:text-outrageous-orange-400 transition-colors" 
                     size={15} 
                 />
             </button>

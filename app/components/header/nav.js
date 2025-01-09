@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import styles from './nav.module.scss';
 
 export default function NavMenu({className, onClick, setActiveRoute, activeRoute}){
     return(
@@ -9,7 +10,7 @@ export default function NavMenu({className, onClick, setActiveRoute, activeRoute
                 setActiveRoute('/');
                 onClick && onClick();
                 }}
-                className={`menu-item ${activeRoute === '/' ? 'active' : ''}`}
+                className={`${styles.item} ${activeRoute === '/' ? styles.active : ''}`}
             >
                 Pagrindinis
             </Link>
@@ -19,7 +20,7 @@ export default function NavMenu({className, onClick, setActiveRoute, activeRoute
                 setActiveRoute('/menu');
                 onClick && onClick();
                 }}
-                className={`menu-item ${activeRoute === '/menu' ? 'active' : ''}`}
+                className={`${styles.item} ${activeRoute === '/menu' ? styles.active : ''}`}
             >
                 Meniu
             </Link>
@@ -29,7 +30,7 @@ export default function NavMenu({className, onClick, setActiveRoute, activeRoute
                 setActiveRoute('/about');
                 onClick && onClick();
                 }}
-                className={`menu-item ${activeRoute === '/about' ? 'active' : ''}`}
+                className={`${styles.item} ${activeRoute === '/about' ? styles.active : ''}`}
             >
                 Apie mus
             </Link>
@@ -39,7 +40,7 @@ export default function NavMenu({className, onClick, setActiveRoute, activeRoute
                 setActiveRoute('/contacts');
                 onClick && onClick();
                 }}
-                className={`menu-item ${activeRoute === '/contacts' ? 'active' : ''}`}
+                className={`${styles.item} ${activeRoute === '/contacts' ? styles.active : ''}`}
             >
                 Kontaktai
             </Link>

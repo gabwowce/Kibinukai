@@ -19,7 +19,7 @@ export default function Navbar() {
         };
     
     return (
-        <section className="relative flex flex-col items-center justify-between bg-lightYellow">
+        <section className="relative flex flex-col items-center justify-between bg-cream">
             <div className="container flex justify-between py-4"> 
                 <Logo />
                 <div className="flex items-center gap-4 font-semibold"> 
@@ -28,12 +28,12 @@ export default function Navbar() {
                         onClick={toggleMenu}
                         aria-controls="mobile-menu"
                         aria-expanded={isOpen}
-                        className="block md:hidden text-primary text-2xl p-2 z-50"
+                        className="block md:hidden text-outrageous-orange-400 text-2xl p-2 z-50"
                     >
                         {isOpen ? <FaTimes className='icon' /> : <FaBars className='icon' />}
                     </button>
                     <NavMenu 
-                        className="hidden md:flex items-center gap-8"
+                        className="hidden md:flex items-center gap-4 lg:gap-8"
                         activeRoute={activeRoute}
                         setActiveRoute={setActiveRoute}
                         onClick={closeMenu}

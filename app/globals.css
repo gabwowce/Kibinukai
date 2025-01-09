@@ -3,25 +3,6 @@
 @tailwind utilities;
 
 :root {
-  /* Colors */
-  --background: #FFFFFF; /* light yellow/white */
-  --primary: #FF6030; /* orange*/
-
-  --white: #FFFFFF;
-  --black: #1E1C1C;
-
-  --brown-foreground: #411A06; /* dark brown*/
-  --brown-foreground-hover: #976045; /* dark brown*/
-
-  --info-bar-background: rgb(255,88,0,0.40); /* light orange */
-
-  --special-icon: #F8B800; /* yellow */
-  --navbar-background: rgba(255, 222, 165, 1); /* light yellow */
-
-  --details-background: rgba(255, 212, 144, 0.28) /* light yellow (circle)*/
-  
-  --icon-color: #411A06; /*  brown */
-  
   /* Fonts */
   --font-sans: 'Arial', 'Helvetica', sans-serif; /* Sans-serif fontai */
   --font-display: 'ADLaM Display', sans-serif; /* Specialus Display fontas */
@@ -30,8 +11,9 @@
   /* Font  sizes */
   --font-size-h1: 2rem; /* 32px */
   --font-size-h2: 1.5rem; /* 24px */
-  --font-size-h3: 1.25rem; /* 20px */
-  --font-size-body: 1rem; /* 16px */
+  --font-size-h3: 1rem; /* 16px */
+  --font-size-h4: 0.9375rem; /* 15px */ 
+  --font-size-body: 0.75rem; /* 14px */
   --font-size-btn: 1rem; /* 16px */
   
   /* Line height */
@@ -39,26 +21,29 @@
   --line-height-tight: 1.05; /* Siauresnis line-height */
 }
 
-@media screen and (min-width: 640px) {
+@media screen and (min-width: 1024px) {
   :root {
-    --font-size-h1: 2.75rem; /* 44px */
-    --font-size-h2: 1.75rem; /* 28px */
-    --font-size-h3: 1.5rem; /* 24px */
+    --font-size-h1: 2.55rem; /* 41px */
+    --font-size-h2: 2rem; /* 32px */
+    --font-size-h3: 1.3rem; /* 24px */
+    --font-size-h4: 1.25rem; /* 20px */ 
+    --font-size-body: 0.9375rem; /* 15px */ 
+    --font-size-btn: 1rem; /* 16px */
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  :root {
+    --font-size-h1: 3.5rem; /* 56px */
+    --font-size-h2: 3rem; /* 48px */
+    --font-size-h3: 1.75rem; /* 28px */
+    --font-size-h4: 1.625rem; /* 26px */ 
     --font-size-body: 1rem; /* 16px */
     --font-size-btn: 1rem; /* 16px */
   }
 }
 
-/* Papildomas stilius desktopams */
-@media screen and (min-width: 1024px) {
-  :root {
-    --font-size-h1: 3.5rem; /* 56px */
-    --font-size-h2: 2rem; /* 32px */
-    --font-size-h3: 1.75rem; /* 28px */
-    --font-size-body: 1rem; /* 16px */
-    --font-size-btn: 1rem; /* 16px */
-  }
-}
+
 
 body {
   height: 100%;
@@ -85,23 +70,21 @@ h3{
   line-height: var(--line-height-tight);
 }
 
+h4{
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-tight);
+}
+
 p{
   font-size: var(--font-size-body);
   line-height: var(--line-height-tight);
 }
 
 .container {
-  @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto px-4 sm:px-20;
+  @apply max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl mx-auto px-10 sm:px-20;
 }
 
-
-.home {
-
-  overflow: visible;
-  z-index:-1
-}
-
-/* Pagrindinis burbuliuko kursorius */
+/* Pagrindinis kursorius */
 body {
   cursor: url('../public/assets/cursors/cursor2-small.png') 0 0, auto;
 }
@@ -110,17 +93,10 @@ body {
 a:hover,
 button:hover {
   cursor: url('../public/assets/cursors/cursor2-small.png') 0 0, pointer;
-
 }
+
 
 .icon{
-  @apply text-foregroundBrown hover:text-foregroundBrownHover transition-colors
+  @apply text-brown hover:text-brown-hover transition-colors
 }
 
-.menu-item{
-  @apply hover:text-primary transition-colors font-semibold
-}
-
-.active {
-  @apply font-bold font-display text-primary transition-colors underline decoration-2 underline-offset-8 pb-2;
-}
