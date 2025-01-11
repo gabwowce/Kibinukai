@@ -63,11 +63,11 @@ export function OrderNow() {
     return (
       <div className="flex flex-col items-start lg:items-end w-full pt-5 md:pt-0">
 
-        <div className="relative z-20 ml-16 lg:ml-0">
+        <div className="relative z-20 min-w-[235px] ml-5 xs:ml-16 lg:ml-0">
           <OrderNow />
         </div>
 
-        <div className="relative  lg:-mt-2 xl:-mt-4 z-10 lg:self-start  xl:pl-0 2xl:pl-10"> 
+        <div className="relative lg:-mt-2 xl:-mt-4 z-10 lg:self-start  xl:pl-0 2xl:pl-10"> 
           <Rating />
         </div>
       </div>

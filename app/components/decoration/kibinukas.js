@@ -7,9 +7,10 @@ import KibinukasNoEyes from '@/public/assets/Kibinukas-noEyes.png';
 
 const Kibinukai = ({ className }) => {
   return (
-    <div className={`relative flex justify-end ${className} min-w-[500px] scale-65 lg:scale-100`}>
+    <div className={`relative flex justify-end ${className} min-w-[490px] scale-65 lg:scale-100`}>
+      
       {/* Pirmasis kibinukas (priekyje) */}
-      <div className="relative z-10 inline-block">
+      <div className="relative z-10 inline-block top-[-80px] md:top-0">
         <Image
           src={KibinukasNoEyes}
           alt="Kibinukas"
@@ -23,8 +24,8 @@ const Kibinukai = ({ className }) => {
         </div>
       </div>
 
-      {/* Antrasis kibinukas (fone) */}
-      <div className="absolute top-[50px] right-[150px] z-10">
+      {/* Antrasis kibinukas (fonėje) */}
+      <div className="absolute top-[-10px] md:top-[50px] right-[150px] z-10">
         <Image
           src={KibinukasNoEyes}
           alt="Kibinukas"
