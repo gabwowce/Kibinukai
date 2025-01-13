@@ -1,6 +1,6 @@
 import Image from "next/image";
 import groupKibinai from "@/public/assets/groupKibinai2.png";
-import groupKibinukaiMobile from "@/public/assets/group-kibinukai-mobile.png";
+import kibinukaiSeperator from "@/public/assets/home/kibinai-seperator.png"
 import Bubble from "./components/decoration/bubble";
 import Kibinukai from "./components/decoration/kibinukas";
 import Button from "./components/ui/button/button";
@@ -9,7 +9,7 @@ import { Messages } from "./components/ui/message";
 
 export default function Home() {
   return (
-    <main className="w-full h-screen overflow-hidden">
+    <main className="w-full h-screen overflow-hidden flex flex-col">
       <div className="relative z-10 flex flex-col-reverse md:flex-row container mx-auto h-max-[50rem] lg:gap-0 xl:gap-0 2xl:gap-36">
         <Bubble />
         <Image
@@ -50,8 +50,8 @@ export default function Home() {
             
         </div>
 
-
       </div>
+      <Image src={kibinukaiSeperator} alt="Kibinai seperator picture" className="self-center pt-[300px]"/>
     </main>
   );
 }

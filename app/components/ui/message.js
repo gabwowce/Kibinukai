@@ -48,11 +48,11 @@ export function OrderNow() {
             <p className="text-h3">Kibinukai</p>
         </div>
         <div className="inline-flex items-center justify-center space-x-1 lg:space-x-2">
-            <Image src={star }className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
-            <Image src={star }className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
-            <Image src={star }className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
-            <Image src={star }className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
-            <Image src={star }className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
+            <Image src={star} alt="star" className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
+            <Image src={star} alt="star" className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
+            <Image src={star} alt="star" className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
+            <Image src={star} alt="star" className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
+            <Image src={star} alt="star" className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
             <p className="text-gray-500 text-h4 pt-1">4,6</p>
         </div>
         
