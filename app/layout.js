@@ -1,25 +1,27 @@
 import "./globals.css";
 
-import Header from "./components/header/header";
+import Header from "../components/header/header";
 import Image from "next/image";
-import kibinukaiSeperator from "@/public/assets/home/kibinai-seperator.png"
+import kibinukaiSeperator from "@/public/assets/home/kibinai-seperator.png";
 
 export const metadata = {
   title: "Kibinukai Vilniuje",
-  description: "Skaniausi kibinai Vilniuje"
+  description: "Skaniausi kibinai Vilniuje",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-       <head>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link
-          href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Signika+Negative&display=swap"
           rel="stylesheet"
         />
       </head>
       <body>
-        <Header/>
+        <Header />
         {children}
       </body>
     </html>

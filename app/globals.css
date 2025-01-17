@@ -5,7 +5,7 @@
 :root {
   /* Fonts */
   --font-sans: 'Arial', 'Helvetica', sans-serif; /* Sans-serif fontai */
-  --font-display: 'ADLaM Display', sans-serif; /* Specialus Display fontas */
+  --font-display: "Signika Negative", sans-serif; /* Specialus Display fontas */
   --font-body: 'Arimo', sans-serif; /* Body tekstui naudojamas fontas */
 
   /* Font  sizes */
@@ -52,6 +52,7 @@ body {
   color: var(--black);
   font-family: var(--font-body);
   background: var(--background);
+
 
 }
 

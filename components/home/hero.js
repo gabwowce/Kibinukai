@@ -1,7 +1,7 @@
-import Bubble from "../../components/decoration/bubble";
-import Kibinukai from "../../components/decoration/kibinukas";
-import Button from "../../components/ui/button/button";
-import { Messages } from "../../components/ui/message";
+import Bubble from "../decoration/bubble";
+import Kibinukai from "../decoration/kibinukas";
+import Button from "../ui/button/button";
+import { Messages } from "../ui/message";
 import groupKibinai from "@/public/assets/groupKibinai2.png";
 import Image from "next/image";
 
@@ -21,7 +21,7 @@ export default function Hero(){
                  
                     <h1 className="pb-10 ">
                       Patys patys skaniausi&nbsp;
-                      <span className="font-display text-outrageous-orange-400 drop-shadow-custom">KIBINAI</span>
+                      <span className="font-display font-bold text-outrageous-orange-400 drop-shadow-custom">KIBINAI</span>
                     </h1>
                     <p className="text-h3 pb-10">
                       Polimori kolima aparastas hfkrok musu kurlsmifhshankfl ask akd hahanastytus

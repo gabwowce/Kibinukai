@@ -7,6 +7,7 @@ export default {
   ],
   theme: {
     extend: {
+      
       screens: {
         'xs': '370px', 
       },
@@ -89,7 +90,7 @@ export default {
         },
       },
       fontFamily: {
-        display: ['"ADLaM Display"', 'sans-serif'],  
+        display: ['"Signika Negative"', 'sans-serif'],  
         body: ['"Arimo"', 'sans-serif'],  
       },
       fontSize: {

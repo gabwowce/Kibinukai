@@ -15,7 +15,7 @@ export default function News() {
 
     return (
         <div aria-label="News" className='flex items-center justify-between bg-white py-2 px-4'>
-            <p className='flex-1 text-center xs:text-xs'>
+            <p className='flex-1 text-center '>
                 Dabar mes ir 
                 <span className='px-2'>
                     <Image 

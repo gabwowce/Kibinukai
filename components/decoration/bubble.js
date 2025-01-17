@@ -1,5 +1,7 @@
 import Image from "next/image";
 import elipse from "@/public/assets/Ellipse1.png";
+import fonas1 from "@/public/assets/fonai/fonas1.png"
+import fonas2 from "@/public/assets/fonai/fonas2.png"
 
 export default function Bubble() {
   return (
