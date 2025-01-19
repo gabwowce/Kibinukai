@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "../components/header/header";
 import Image from "next/image";
 import kibinukaiSeperator from "@/public/assets/home/kibinai-seperator.png";
+import Footer from "@/components/footer";
 
 export const metadata = {
   title: "Kibinukai Vilniuje",
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
       <body>
         <Header />
         {children}
+        <Footer/>
       </body>
     </html>
   );

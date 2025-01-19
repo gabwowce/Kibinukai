@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from 'next/link';
-import logo from '@/public/assets/logo1.png';
+import logoBlack from '@/public/assets/logo1.png';
+import logoWhite from '@/public/assets/logo2.png';
 
-export default function Logo() {
+export default function Logo({white}) {
     return (
         <Link href="/">
             <Image 
-                src={logo} 
+                src={white ? logoWhite : logoBlack} 
                 alt="Kibinukai logo" 
                 className="w-[100px] md:w-[130px] h-auto"
             />

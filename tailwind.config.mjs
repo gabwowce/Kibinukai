@@ -13,9 +13,11 @@ export default {
       },
       boxShadow: {
         'custom': '4px 4px 4px rgba(0, 0, 0, 0.25)', 
+        'custom-deep': '8px 8px 8px rgba(0, 0, 0, 0.25)', 
       },
       dropShadow: {
         'custom': '4px 4px 4px rgba(0, 0, 0, 0.25)', 
+        'custom-deep': '8px 8px 8px rgba(0, 0, 0, 0.25)', 
       },
       scale: {
         '55': '0.55', 

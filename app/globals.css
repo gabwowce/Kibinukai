@@ -101,3 +101,6 @@ button:hover {
   @apply text-brown hover:text-brown-hover transition-colors
 }
 
+.icon-white{
+  @apply text-white hover:text-brown-hover transition-colors
+}

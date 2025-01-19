@@ -6,7 +6,7 @@ import bannerMobile1 from "@/public/assets/banners/naujiena-saldyti-banner-mobil
 
 import banner2 from "@/public/assets/banners/velykos-banner.png";
 import bannerMobile2 from "@/public/assets/banners/velykos-banner-mobile.png";
-import Banner from "./banner";
+import Banner from "./reusableBanner";
 
 import { useSwipeable } from "react-swipeable";
 import { useRouter } from "next/navigation";

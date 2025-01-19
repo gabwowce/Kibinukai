@@ -1,6 +1,6 @@
 import { FaFacebook, FaInstagram, FaFacebookMessenger } from "react-icons/fa";
 
-export default function SocialMedia({forMobile}) {
+export default function SocialMedia({forMobile, white}) {
     return (
         // If forMobile true, then we hide social icons when screen at least md (showing icons only mobile)
         <nav className={`flex gap-3 ${forMobile && "block md:hidden"}`} aria-label="Social Media Links">
@@ -11,7 +11,7 @@ export default function SocialMedia({forMobile}) {
                 aria-label="Facebook"
             >
                 <FaFacebook 
-                    className="icon" 
+                    className={`${white ? "icon-white" : "icon"}`}
                     size={25} 
                 />
             </a>
@@ -22,7 +22,7 @@ export default function SocialMedia({forMobile}) {
                 aria-label="Facebook Messenger"
             >
                 <FaFacebookMessenger 
-                    className="icon" 
+                    className={`${white ? "icon-white" : "icon"}`}
                     size={25} 
                 />
             </a>
@@ -33,7 +33,7 @@ export default function SocialMedia({forMobile}) {
                 aria-label="Instagram"
             >
                 <FaInstagram 
-                    className="icon" 
+                    className={`${white ? "icon-white" : "icon"}`}
                     size={25} 
                 />
             </a>

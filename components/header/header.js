@@ -5,10 +5,13 @@ import SocialMedia from "../ui/socialMedia";
 
 export default function Header() {
     return (
-        <header>
-            <News />
-            <Info/>
-            <Navbar/>
-        </header>
+      <>
+        <News />
+        <Info />
+        <div className="sticky top-0 z-50">
+          <Navbar />
+        </div>
+      </>
     );
-}
+  }
+  

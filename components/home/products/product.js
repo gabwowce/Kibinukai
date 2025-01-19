@@ -43,7 +43,11 @@ export default function Product({title, desc, img, index, mode, isMdUp}) {
         <Image
           src={img}
           alt="Kibinai"
-          className="rounded-full xs:w-[100px] xs:h-[100px] sm:w-[120px] sm:h-[120px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px]  xl:w-[250px] xl:h-[250px]  object-cover"
+         className="rounded-full xs:w-[100px] xs:h-[100px] sm:w-[120px] 
+                    sm:h-[120px] md:w-[150px] md:h-[150px] lg:w-[200px] 
+                    lg:h-[200px] xl:w-[250px] xl:h-[250px] object-cover 
+                    hover:shadow-custom-deep transition-transform duration-500 
+                    ease-in-out hover:translate-y-[-12px] "
         />
         <Image
           src={arrowSm}

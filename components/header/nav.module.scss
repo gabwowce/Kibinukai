@@ -5,4 +5,11 @@
 .active {
     @apply font-bold font-display text-outrageous-orange-400 transition-colors underline decoration-2 underline-offset-8 pb-2;
 }
-  
+
+.item-white {
+  @apply text-white hover:text-white transition-colors font-semibold text-p
+  }
+
+  .active-white {
+   
+}

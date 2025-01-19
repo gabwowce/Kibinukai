@@ -9,7 +9,7 @@ import Image from "next/image";
 export default function Hero(){
     return(
         <section className="relative z-10 flex flex-col-reverse md:flex-row container mx-auto h-max-[50rem] 
-                            lg:gap-0 xl:gap-0 2xl:gap-36 pb-5 md:pb-30 lg:pb-36 2xl:pb-56">
+                            lg:gap-0 xl:gap-0 2xl:gap-36 pb-5 md:pb-30 xl:pb-32 2xl:pb-52 xl:py-10">
                 <Bubble />
                 <Image
                   src={groupKibinai}

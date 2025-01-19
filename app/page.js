@@ -2,6 +2,9 @@
 import OurProducts from "@/components/home/OurProducts";
 import Carousel from "../components/home/carousel";
 import Hero from "../components/home/hero";
+import CouponBanner from "@/components/home/couponBanner";
+import DeliveryBanner from "@/components/home/deliveryBanner";
+import Banners from "@/components/home/programmedBanners";
 
 
 export default function Home() {
@@ -11,7 +14,8 @@ export default function Home() {
       <Hero/>
       <Carousel/>
       <OurProducts/>
-
+      <Banners/>
+      
     </main>
   );
 }
