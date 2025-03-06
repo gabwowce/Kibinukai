@@ -15,6 +15,8 @@ const products = [
   { img: miniKibinai, title: "Mini kibinai", desc: "Sultingas ir itin švelnaus skonio kibinas nustebins netgi gurmanus", mode: 0},
   { img: gerimai, title: "Gėrimai", desc: "Sultingas ir itin švelnaus skonio kibinas nustebins netgi gurmanus", mode: 1},
   { img: rinkiniai, title: "Rinkiniai", desc: "Sultingas ir itin švelnaus skonio kibinas nustebins netgi gurmanus", mode: 2},
+  { img: gerimai, title: "Gėrimai2", desc: "Sultingas ir itin švelnaus skonio kibinas nustebins netgi gurmanus", mode: 2},
+  { img: rinkiniai, title: "Rinkiniai2", desc: "Sultingas ir itin švelnaus skonio kibinas nustebins netgi gurmanus", mode: 1},
 
 ];
 
@@ -28,16 +30,23 @@ export default function ProductsList() {
     window.addEventListener("resize", checkSize);
     return () => window.removeEventListener("resize", checkSize);
   }, []);
+
+
     return (
+      <>
         <div className="grid gap-10 lg:gap-20 py-10 lg:py-20 grid-cols-2 md:grid-cols-3">
-            {products.map((product, index) => (
-                <Product
-                key={product.title}
-                {...product}
-                index={index}
-                isMdUp={isMdUp}
-                />
-            ))}
+            {products.slice(0, 6).map((product, index) => (
+            <Product key={product.title} {...product} index={index} isMdUp={isMdUp} />
+          ))}
         </div>
+
+        <div className="grid grid-cols-2">
+          {products.slice(6).map((product, index) => (
+            <Product key={product.title} {...product} index={index + 6} isMdUp={isMdUp} />
+          ))}
+        </div>
+      </>
+
     );
 }
+

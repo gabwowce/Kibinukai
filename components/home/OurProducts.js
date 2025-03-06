@@ -1,18 +1,27 @@
-
+import SectionTitle from "@/components/SectionTitle";
 import ProductsList from "./products/productsList";
+import BubbleBackground from "../decoration/bubbleBackground";
 
-export default function OurProducts(){
-    return(
-        <section className="container">
-            <div className="flex flex-col items-center py-10 lg:py-20">
-                <h2 className="font-display font-bold text-outrageous-orange-400 pb-2 md:pb-4">
-                    Mūsų produktai 
-                </h2>
-                <p className="text-center">
-                Užsisakykite kibinų rinkinį savo renginiui. Pasirinkite iš mūsų meniu arba susikurkite savo derinį
-                </p>
+export default function OurProducts() {
+    return (
+        <section className="py-10 lg:py-20 relative ">
+            <BubbleBackground right/>
+
+            {/* Title */}
+            <div className="flex flex-col items-center relative z-10">
+                <SectionTitle 
+                    primaryColor 
+                    title="Mūsų produktai" 
+                    subtitle="Užsisakykite kibinų rinkinį savo renginiui. Pasirinkite iš mūsų meniu arba susikurkite savo derinį"
+                />
             </div>
-            <ProductsList/>
+
+            {/* Product List */}
+            <div className="container relative z-10">
+                <ProductsList />
+            </div>
+
+            <BubbleBackground left/>
         </section>
     );
 }

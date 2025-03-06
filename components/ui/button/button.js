@@ -17,6 +17,7 @@ const Button = ({
         {
           [styles['button--primary']]: variant === 'primary',
           [styles['button--outlined']]: variant === 'outlined',
+          [styles['button--smallVersion']]: variant === 'smallVersion',
           'w-full md:w-auto': fullWidth, // <-- čia keičiam iš sm į md
         }
       )}

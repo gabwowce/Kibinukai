@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Eyes from "./eyes";
-import KibinukasNoEyes from '@/public/assets/Kibinukas-noEyes.png';
+import KibinukasNoEyes from '@/public/assets/kibinukas-noeyes-new.png';
 
 const Kibinukai = ({ className }) => {
   return (
@@ -17,7 +17,7 @@ const Kibinukai = ({ className }) => {
           className="object-contain drop-shadow-custom"
         />
         <div
-          className="absolute top-[68px] left-[106px]"
+          className="absolute top-[60px] left-[106px]"
           style={{ transform: "rotate(15deg)" }}
         >
           <Eyes />
@@ -32,7 +32,7 @@ const Kibinukai = ({ className }) => {
           className="object-contain drop-shadow-custom"
         />
         <div
-          className="absolute top-[68px] left-[106px]"
+          className="absolute top-[55px] left-[95px] xl:top-[60px] xl:left-[106px]"
           style={{ transform: "rotate(15deg)" }}
         >
           <Eyes />

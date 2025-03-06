@@ -65,8 +65,8 @@ export default function Product({title, desc, img, index, mode, isMdUp}) {
       </div>
 
       <div>
-        <h3 className="font-bold py-2">{title}</h3>
-        <p className="text-gray-700 w-40 lg:w-60">
+        <h3 className="font-bold font-display text-brown">{title}</h3>
+        <p className="text-gray-700 text-sm w-40 lg:w-60 leading-4">
         {desc}
         </p>
       </div>

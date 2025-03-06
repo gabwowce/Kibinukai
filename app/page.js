@@ -5,6 +5,11 @@ import Hero from "../components/home/hero";
 import CouponBanner from "@/components/home/couponBanner";
 import DeliveryBanner from "@/components/home/deliveryBanner";
 import Banners from "@/components/home/programmedBanners";
+import { FaExternalLinkAlt, FaBolt } from "react-icons/fa";
+
+
+
+import { FaShippingFast, FaTruckPickup, FaMapMarkerAlt } from "react-icons/fa";
 
 
 export default function Home() {

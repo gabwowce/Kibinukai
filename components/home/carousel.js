@@ -69,7 +69,7 @@ export default function Carousel() {
   return (
     <section
       
-      className="w-full h-auto overflow-hidden py-10 lg:py-20 z-30"
+      className="w-full h-auto overflow-hidden sm:pb-10 md:pb-0 2xl:pb-20 z-30"
     >
       {/* Banner container */}
       <div
@@ -88,24 +88,24 @@ export default function Carousel() {
               alt={banner.alt}
             >
 
-{/* Navigation dots */}
-<div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {banners.map((_, index) => (
-          <button
-            key={index}
-            className={`w-2 h-2 lg:w-3 lg:h-3 rounded-full ${
-              index === currentIndex
-                ? "bg-outrageous-orange-400"
-                : "bg-outrageous-orange-200"
-            }`}
-            onClick={() => setCurrentIndex(index)}
-          ></button>
-        ))}
-      </div>
+        {/* Navigation dots */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                {banners.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`w-2 h-2 lg:w-3 lg:h-3 rounded-full ${
+                      index === currentIndex
+                        ? "bg-outrageous-orange-400"
+                        : "bg-outrageous-orange-200"
+                    }`}
+                    onClick={() => setCurrentIndex(index)}
+                  ></button>
+                ))}
+          </div>
             </Banner>
           </div>
-        ))}
-      </div>
+            ))}
+          </div>
 
       
     </section>

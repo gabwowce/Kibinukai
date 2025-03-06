@@ -9,7 +9,7 @@ export default function DeliveryBanner() {
                     <h2 className="w-1/2 xl:w-full font-display font-bold text-outrageous-orange-400">
                         “Kibinukai” kuponai
                     </h2>
-                    <p className="text-justify">
+                    <p className="text-justify w-60 py-10">
                         Dovanokite skanią staigmeną – kibinų kuponas jau čia! Įsigykite mūsų kepyklėlėje adresu umedziu g. 7 arba užsisakykite telefonu. Puiki dovana kiekvienai progai!
                     </p>
                 </div>

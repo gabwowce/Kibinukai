@@ -6,7 +6,7 @@ export function MessageFrame({children, className}) {
 
     return(
         <figure 
-            className={`bg-white-transparent shadow-custom ${className}`}
+            className={`bg-white-transparent70 shadow-custom ${className}`}
             style={{
                 borderRadius: '16px 16px 16px 0px',
               }}

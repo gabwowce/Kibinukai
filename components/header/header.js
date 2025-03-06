@@ -6,7 +6,7 @@ import SocialMedia from "../ui/socialMedia";
 export default function Header() {
     return (
       <>
-        <News />
+        {/* <News /> */}
         <Info />
         <div className="sticky top-0 z-50">
           <Navbar />

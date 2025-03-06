@@ -2,6 +2,7 @@ import ContactInfo from "./contactInfo";
 import NavMenu from "./header/nav";
 import Logo from "./ui/logo";
 import SocialMedia from "./ui/socialMedia";
+import WorkingTime from "./workingTime";
 
 const bg = "/assets/footer/footer-bg.png";
 
@@ -14,11 +15,22 @@ export default function Footer() {
                 backgroundImage: `url(${bg})`,
             }}
         >
-            <Logo white/>
-            <NavMenu white/>
-            <SocialMedia white />
-            <ContactInfo />
-    
+            <div className="border-b-[1px] border-white-transparent30 py-[50px]">
+                <div className="container flex flex-col gap-10">
+                    <div className="flex flex-row justify-between">
+                        <Logo white/>
+                        <NavMenu white/>
+                        <SocialMedia white />
+                    </div>
+                    
+                    <ContactInfo className="flex flex-col gap-3" white/>
+                    <WorkingTime white/>
+                </div>
+            </div>
+            <p className="text-white-transparent30 py-5 flex justify-center">
+                Copyright © 2024 Kibinukai. Made by Gabrielė | https://gabwowce.github.io/portfolio
+            </p>
+            
         </footer>
     );
 }

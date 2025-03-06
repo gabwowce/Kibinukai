@@ -31,10 +31,7 @@ export default function Navbar() {
                     >
                         {isOpen ? <FaTimes className='icon' /> : <FaBars className='icon' />}
                     </button>
-                    <NavMenu 
-                        className="hidden md:flex items-center gap-4 lg:gap-8"
-                        onClick={closeMenu}
-                    />
+                    <NavMenu onClick={closeMenu}/>
                 </div>
             </div>
             {isOpen && (

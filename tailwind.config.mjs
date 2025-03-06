@@ -30,10 +30,15 @@ export default {
       },
       colors: {
         background: '#FFFFFF',
-        black: '#1E1C1C',
+        black: {
+          DEFAULT: '#1E1C1C',
+          transparent70: "rgba(0, 0, 0, 0.7)",
+          transparent30: "rgba(0, 0, 0, 0.3)",
+        },
         white:{
           DEFAULT: '#FFFFFF',
-          transparent: "rgba(255, 255, 255, 0.7)",
+          transparent70: "rgba(255, 255, 255, 0.7)",
+          transparent30: "rgba(255, 255, 255, 0.3)",
         },
       
         'outrageous-orange': {
@@ -56,6 +61,7 @@ export default {
       
         orange: {
           lighter: 'rgba(255,88,0,0.40)',
+          bubble: "#FFF3E0",
         },
       
         cream: {

@@ -30,7 +30,7 @@ const Eyes = ({className}) => {
   }, []);
 
   return (
-    <div className={`flex gap-5 ${className}`}>
+    <div className={`flex gap-3 ${className}`}>
       <div className={`eye w-12 h-12 bg-white rounded-full relative flex justify-center items-center`}>
         <div className="pupil w-7 h-7 bg-black rounded-full absolute"></div>
       </div>
