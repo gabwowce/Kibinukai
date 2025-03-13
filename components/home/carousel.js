@@ -69,7 +69,7 @@ export default function Carousel() {
   return (
     <section
       
-      className="w-full h-auto overflow-hidden sm:pb-10 md:pb-0 2xl:pb-20 z-30"
+      className="w-full h-auto overflow-hidden sm:pb-10 md:pb-0 2xl:pb-20 z-19"
     >
       {/* Banner container */}
       <div

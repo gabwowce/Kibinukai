@@ -1,34 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { getMenuItems } from "../../services/wpAPI";
+import React from "react";
 import MenuItem from "./MenuItem";
-import CategoryButton from "../ui/button/categoryButton";
 
-const MenuItems = () => {
-  const [menuItems, setMenuItems] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(null);
-
-  useEffect(() => {
-    getMenuItems().then((data) => {
-      setMenuItems(data);
-
-      // Ištraukiame unikalias kategorijas
-      const uniqueCategories = [...new Set(data.map((item) => item.kategorija))];
-      setCategories(uniqueCategories);
-
-      // Pasirinkti pirmąją kategoriją kaip aktyvią
-      if (uniqueCategories.length > 0) {
-        setActiveCategory(uniqueCategories[0]);
-      }
-    });
-  }, []);
-
-  // Filtruojame produktus pagal aktyvią kategoriją
-  const filteredItems = menuItems.filter((item) => item.kategorija === activeCategory);
+const MenuItems = ({ items }) => {
+  if (!items || items.length === 0) {
+    return <p className="text-center text-gray-500">Nėra prekių šioje kategorijoje.</p>;
+  }
 
   // Grupavimas pagal subkategorijas
-  const groupedBySubcategory = filteredItems.reduce((acc, item) => {
+  const groupedBySubcategory = items.reduce((acc, item) => {
     if (!acc[item.subkategorija]) {
       acc[item.subkategorija] = [];
     }
@@ -38,19 +18,6 @@ const MenuItems = () => {
 
   return (
     <div className="container p-6 mx-auto">
-      {/* Kategorijų pasirinkimo juosta */}
-      <div className="flex space-x-4 mb-6 overflow-x-auto justify-center">
-        {categories.map((category) => (
-          <CategoryButton
-            key={category}
-            category={category}
-            isActive={category === activeCategory}
-            onClick={setActiveCategory}
-          />
-        ))}
-      </div>
-
-      {/* Rodome tik aktyvios kategorijos subkategorijas */}
       {Object.keys(groupedBySubcategory).map((subcategory) => (
         <div key={subcategory} className="mb-8">
           <h3 className="text-2xl font-semibold border-b-2 border-gray-400 pb-2 mb-4">

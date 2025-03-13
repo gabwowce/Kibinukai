@@ -5,6 +5,7 @@ import Logo from '../ui/logo';
 import SocialMedia from '../ui/socialMedia';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import NavMenu from "./nav";
+import Cart from './Cart';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +24,7 @@ export default function Navbar() {
                 <Logo />
                 <div className="flex items-center gap-4 font-semibold"> 
                     <SocialMedia forMobile />
+                    
                     <button
                         onClick={toggleMenu}
                         aria-controls="mobile-menu"
@@ -31,12 +33,17 @@ export default function Navbar() {
                     >
                         {isOpen ? <FaTimes className='icon' /> : <FaBars className='icon' />}
                     </button>
-                    <NavMenu onClick={closeMenu}/>
+                    {/* Desktop navigation - visible only on large screens */}
+                    <div className="hidden md:block">
+                        <NavMenu bag onClick={closeMenu} />
+                    </div>
                 </div>
             </div>
+            <Cart forMobile size="35" className="absolute md:hidden top-[90px] right-[30px] bg-outrageous-orange-300 rounded-full p-1" />
+            {/* Mobile navigation - visible only when isOpen is true */}
             {isOpen && (
-                <div className='block md:hidden w-full bg-[#FFE4B8]'>
-                    <NavMenu 
+                <div className="md:hidden w-full bg-[#FFE4B8] z-50">
+                    <NavMenu
                         className="flex flex-col items-center gap-4 py-4" 
                         onClick={closeMenu}
                     />

@@ -4,7 +4,7 @@ import SectionHeader from "./SectionHeader";
 
 export default function DeliveryInfo() {
   return (
-    <section className="mx-auto p-6 my-8">
+    <section className="mx-auto p-6 my-8 ">
       <SectionHeader
               title="Užsakymų ir pristatymo informacija"
               icon={FaShippingFast}

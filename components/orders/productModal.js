@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
-import { useCart } from "@/services/cartContext";
+import { useCart } from "@/context/cartContext";
 
 export default function ProductModal({ item, onClose }) {
   const { addToCart } = useCart();

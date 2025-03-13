@@ -1,5 +1,5 @@
 "use client";
-import { useCart } from "@/services/cartContext";
+import { useCart } from "@/context/cartContext";
 import HeroSecondary from "@/components/heroSecondary";
 import Cart from "@/components/orders/cart";
 import OrderInfo from "@/components/orders/orderInfo";

@@ -1,9 +1,10 @@
 import "./globals.css";
 
 import Header from "../components/header/header";
-import Image from "next/image";
+import Loading from "./loading";
 import Footer from "@/components/footer";
-import { CartProvider } from "@/services/cartContext";
+import { CartProvider } from "@/context/cartContext";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Kibinukai Vilniuje",
@@ -24,7 +25,9 @@ export default function RootLayout({ children }) {
       <body>
         <CartProvider>
           <Header />
-          {children}
+          <Suspense fallback={<Loading />}>
+            {children}
+          </Suspense>;
           <Footer/>
         </CartProvider>
       </body>
