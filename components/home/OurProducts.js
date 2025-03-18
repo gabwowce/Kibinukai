@@ -8,7 +8,7 @@ export default function OurProducts() {
             <BubbleBackground right/>
 
             {/* Title */}
-            <div className="flex flex-col items-center relative z-10">
+            <div className="container flex flex-col items-center relative z-10">
                 <SectionTitle 
                     primaryColor 
                     title="Mūsų produktai" 

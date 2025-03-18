@@ -17,13 +17,16 @@ const MenuItems = ({ items }) => {
   }, {});
 
   return (
-    <div className="container p-6 mx-auto">
+    <div className=" p-6 mx-auto">
       {Object.keys(groupedBySubcategory).map((subcategory) => (
         <div key={subcategory} className="mb-8">
-          <h3 className="text-2xl font-semibold border-b-2 border-gray-400 pb-2 mb-4">
-            {subcategory}
+          <h3 className="text-2xl font-semibold pb-2 mb-4">
+            {subcategory
+              .toLowerCase() // Viską paverčia mažosiomis raidėmis
+              .replace(/^(\w)/, (char) => char.toUpperCase())} {/* Pirmą raidę daro didžiąją */}
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {groupedBySubcategory[subcategory].map((item) => (
               <MenuItem key={item.id} item={item} />
             ))}

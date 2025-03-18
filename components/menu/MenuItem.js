@@ -8,10 +8,10 @@ const MenuItem = ({ item }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between bg-orange-50 p-4 rounded-lg shadow-sm border border-gray-200">
+      <div className="flex items-center justify-between p-4 border-b-2 border-gray-40">
         <div>
           <h3 className="text-lg font-bold text-gray-900">{item.pavadinimas}</h3>
-          <p className="text-sm text-gray-600">{item.aprasymas}</p>
+          {/* <p className="text-sm text-gray-600">{item.aprasymas}</p> */}
           <div className="flex items-center space-x-2">
             {item.senaKaina && <span className="text-gray-500 line-through">{item.senaKaina} €</span>}
             <span className="text-red-600 font-bold">{item.kaina} €</span>

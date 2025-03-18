@@ -13,7 +13,7 @@ export default function NavMenu({ className, onClick, white, bag }) {
     const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0); // Suskaičiuojame kiek prekių yra krepšelyje
 
     return (
-        <nav className={`fidden md:flex items-center gap-4 lg:gap-8 ${className}`}>
+        <nav className={`${className} flex items-center gap-4 lg:gap-8`}>
             <Link href="/" prefetch={false} onClick={onClick}
                 className={`${white ? styles["item-white"] : styles.item} ${pathname === '/' ? (white ? styles["active-white"] : styles.active) : ''}`}>
                 Pagrindinis

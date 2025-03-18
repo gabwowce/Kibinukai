@@ -1,6 +1,6 @@
-export default function AboutArticle({highlightedWord, title, body }){
+export default function AboutArticle({className, highlightedWord, title, body }){
     return(
-        <article className="py-5">
+      <article className={`${className} py-5`}>
           <header>
             <h2 className="">
               <span className="text-outrageous-orange-400 font-display">{highlightedWord}</span> {title}
