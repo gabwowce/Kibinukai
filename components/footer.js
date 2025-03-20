@@ -19,9 +19,10 @@ export default function Footer() {
                 <div className="container flex flex-col gap-10">
                     <div className="flex flex-row justify-between">
                         <Logo white/>
-                        <NavMenu white/>
+                        <NavMenu white className="hidden md:flex"/>
                         <SocialMedia white />
                     </div>
+                    <NavMenu white className="flex md:hidden dir justify-end"/>
                     
                     <ContactInfo className="flex flex-col gap-3" white/>
                     <WorkingTime white/>

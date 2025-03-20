@@ -20,13 +20,19 @@ export default function Contacts() {
         />
         <BubbleBackground left/>
         <BubbleBackground right/>
-        <ContactInfo bigText bigIcons className="flex flex-row justify-center gap-20 font-semibold py-20"/>
+        <ContactInfo bigText bigIcons className="hidden lg:flex flex-row justify-center gap-20 font-semibold py-20"/>
+        
+        <div className="flex lg:hidden flex-col md:flex-row justify-between items-center">
+          <ContactInfo bigText bigIcons className="flex flex-col lg:flex-row gap-20 font-semibold py-10 md:py-20"/>
+          <WorkingHours className="flex flex-col lg:hidden"/>
+        </div>
+        
 
-        <section className="flex flex-col md:flex-row gap-40 items-center justify-center py-10">
-          <WorkingHours/>
+        <section className="flex flex-col lg:flex-row gap-20 xl:gap-40 items-center justify-center py-10">
+          <WorkingHours className="hidden lg:flex flex-col py-6 px-0"/>
 
           {/* Kontaktų forma */}
-          <div className=" w-2/3">
+          <div className="w-full lg:w-2/3">
             <h2 className="text-2xl font-bold text-brown font-display mb-4">Susisiekite</h2>
             <form className="space-y-4">
               <input type="text" placeholder="Vardas" className="bg-gray-200 w-full p-3 border rounded-xl" />

@@ -5,8 +5,12 @@ import HeroSecondary from "@/components/heroSecondary";
 import { getMenuItems, getMenuCategories } from "@/services/wpAPI";
 import Loading from "@/app/loading";
 import MenuItems from "@/components/menu/Menu";
+<<<<<<< HEAD
 import CategoryButton from "@/components/ui/button/categoryButton";
 import ErrorMessage from "@/components/ui/ErrorMessage"; // ✅ Importuojame klaidų komponentą
+=======
+import CategorySwitcher from "@/components/menu/CategorySwitcher"; // Importuojame naują komponentą
+>>>>>>> 320381a7dd15f79ed914927de880ab46994becec
 
 export default function CategoryPage() {
   const { category } = useParams();
@@ -16,6 +20,7 @@ export default function CategoryPage() {
   const [categories, setCategories] = useState(null);
   const [items, setItems] = useState([]);
   const [isLoading, setLoading] = useState(true);
+<<<<<<< HEAD
   const [isError, setError] = useState(false);
   const [originCategory, setOriginCategory] = useState("");
 
@@ -35,6 +40,16 @@ export default function CategoryPage() {
       } catch (error) {
         console.error("Kategorijų gavimo klaida:", error);
         setError(true);
+=======
+  const [originCategory, setOriginCategory] = useState("");
+
+  useEffect(() => {
+    getMenuCategories().then((data) => {
+      setCategories(data);
+      const matchedCategory = data.find((cat) => cat.slug === decodedCategory);
+      if (matchedCategory) {
+        setOriginCategory(matchedCategory.originCategory);
+>>>>>>> 320381a7dd15f79ed914927de880ab46994becec
       }
     }
 
@@ -44,6 +59,7 @@ export default function CategoryPage() {
   useEffect(() => {
     if (!originCategory) return;
 
+<<<<<<< HEAD
     async function fetchMenuItems() {
       try {
         setLoading(true);
@@ -61,6 +77,14 @@ export default function CategoryPage() {
     }
 
     fetchMenuItems();
+=======
+    setLoading(true);
+    getMenuItems().then((data) => {
+      const filteredItems = data.filter((item) => item.kategorija === originCategory);
+      setItems(filteredItems);
+      setLoading(false);
+    });
+>>>>>>> 320381a7dd15f79ed914927de880ab46994becec
   }, [originCategory]);
 
   if (isError) {
@@ -97,6 +121,7 @@ export default function CategoryPage() {
       />
 
       <div className="container mx-auto p-6">
+<<<<<<< HEAD
         <div className="flex flex-row-reverse justify-center items-center flex-wrap w-full relative mb-5">
           {categories.length > 0 ? (
             categories.map(({ name, slug, image }, index) => {
@@ -123,6 +148,10 @@ export default function CategoryPage() {
             <p className="text-center text-gray-500">Kategorijų nerasta.</p>
           )}
         </div>
+=======
+        {/* Kategorijų perjungimo mygtukai atskirame komponente */}
+        <CategorySwitcher categories={categories} decodedCategory={decodedCategory} router={router} />
+>>>>>>> 320381a7dd15f79ed914927de880ab46994becec
 
         {isLoading ? <Loading /> : <MenuItems items={items} />}
       </div>

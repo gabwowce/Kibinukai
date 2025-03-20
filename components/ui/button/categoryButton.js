@@ -1,7 +1,7 @@
 import Image from "next/image";
 import arrowSm from "@/public/assets/products/arrow-sm.png";
 
-const CategoryButton = ({ category, imageSrc, isActive, onClick }) => {
+const CategoryButton = ({ category, imageSrc, isActive, onClick, right }) => {
   return (
     <button
       onClick={onClick}
@@ -14,7 +14,7 @@ const CategoryButton = ({ category, imageSrc, isActive, onClick }) => {
       
       
 
-      <div className={`flex flex-row items-end gap-5 ${isActive ? "absolute top-[-30px] left-[-80px]" : ""}`}>
+      <div className={`flex ${right ? "flex-row-reverse" : "flex-row"} items-end gap-5 ${isActive ? `absolute top-[${right ? "-30px" : "-30px"}] left-[${right ? "80px" : "-80px"}]` : ""}`}>
         <span className={` text-sm md:text-base font-display ${isActive ? "text-black" : "text-gray-500"}`}>
           {category}
         </span>
@@ -28,7 +28,7 @@ const CategoryButton = ({ category, imageSrc, isActive, onClick }) => {
             height={10}
             objectFit="cover"
             unoptimized
-            className="rotate-[110deg]"
+            className={`${right ? "rotate-[250deg] scale-x-[-1]" : "rotate-[100deg]"}`}
           />
         }
         
