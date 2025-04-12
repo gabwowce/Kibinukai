@@ -1,7 +1,7 @@
 import SectionTitle from "@/components/SectionTitle";
 import ProductsList from "./products/productsList";
 import BubbleBackground from "../decoration/bubbleBackground";
-
+import ProductsListWrapper from "@/components/home/products/ProductsListWrapper";
 export default function OurProducts() {
     return (
         <section className="py-10 lg:py-20 relative ">
@@ -9,16 +9,17 @@ export default function OurProducts() {
 
             {/* Title */}
             <div className="container flex flex-col items-center relative z-10">
-                <SectionTitle 
-                    primaryColor 
-                    title="Mūsų produktai" 
-                    subtitle="Užsisakykite kibinų rinkinį savo renginiui. Pasirinkite iš mūsų meniu arba susikurkite savo derinį"
+            <SectionTitle 
+                primaryColor 
+                title="Mūsų produktai" 
+                subtitle="Skaniausi kibinai, desertai ir užkandžiai vienoje vietoje – atraskite savo mėgstamus skonius mūsų meniu."
                 />
+
             </div>
 
             {/* Product List */}
             <div className="container relative z-10">
-                <ProductsList />
+                <ProductsListWrapper />
             </div>
 
             <BubbleBackground left/>

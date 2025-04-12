@@ -9,15 +9,16 @@ import Script from 'next/script';
 
 export const metadata = {
   title: "Kibinai Vilniuje - skaniausi kibinai ir skanėstai",
-  description: "Užsisakykite kibinus internetu arba užsukite į mūsų kepyklėlę Vilniuje. Greitas pristatymas, kokybė ir tradicijos viename!",
+  description: "Užsisakykite kibinus internetu arba užsukite į mūsų kavinę Vilniuje. Greitas pristatymas, kokybė ir tradicijos viename!",
   openGraph: {
     title: "Kibinai Vilniuje - skaniausi kibinai ir skanėstai",
-    description: "Užsisakykite kibinus internetu arba užsukite į mūsų kepyklėlę Vilniuje. Greitas pristatymas, kokybė ir tradicijos viename!",
+    description: "Užsisakykite kibinus internetu arba užsukite į mūsų kavinę Vilniuje. Greitas pristatymas, kokybė ir tradicijos viename!",
     url: "https://kibinukai.lt",
     siteName: "Kibinukai Vilniuje",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "https://suse-prize-llp-legislation.trycloudflare.com/kibinukaiMain2.png",
+        alt: "Kibinukai ir skanėstai iš Vilniaus kavinės",
         width: 1200,
         height: 630,
       },
@@ -40,12 +41,20 @@ export default function RootLayout({ children }) {
   return (
     <html lang="lt">
       <head>
+        
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link
           href="https://fonts.googleapis.com/css2?family=Signika+Negative&display=swap"
           rel="stylesheet"
         />
+       
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#ffffff" />
+
 
         {/* Schema.org structured data */}
         <Script

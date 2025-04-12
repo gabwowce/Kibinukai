@@ -1,0 +1,22 @@
+{
+    "name": "Kibinukai Vilniuje",
+    "short_name": "Kibinukai",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "description": "Kibinai, desertai ir užkandžiai iš anksto užsakymui arba atsiėmimui kavinėje Vilniuje. Dideli užsakymai, pristatymas ir aukšta kokybė.",
+    "icons": [
+      {
+        "src": "/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  

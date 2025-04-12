@@ -87,7 +87,7 @@ export default function Carousel() {
     }, delay);
   
     return () => resetTimeout();
-  }, [currentIndex]); // ❌ pašalinam "banners"
+  }, [currentIndex, banners.length]); 
   
 
   if (isLoading) {
