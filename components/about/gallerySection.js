@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import SectionTitle from "@/components/SectionTitle";
 import { getGalleryImages } from "../../services/wpAPI";
-import ErrorMessage from "@/components/ui/ErrorMessage"; // ✅ Importuojame klaidų komponentą
+import SkeletonGallery from "@/components/about/skeletonGallery";
 
 export default function GallerySection() {
   const [galleryImages, setGalleryImages] = useState([]);
@@ -27,11 +27,13 @@ export default function GallerySection() {
   }, []);
 
   if (loading) {
-    return <p className="text-center text-lg">Kraunama galerija...</p>;
+    return <SkeletonGallery />;
   }
 
   if (error) {
-    return <ErrorMessage message="Nepavyko įkelti galerijos. Bandykite vėliau." />;
+    return (
+      <div></div>
+    )
   }
 
   return (

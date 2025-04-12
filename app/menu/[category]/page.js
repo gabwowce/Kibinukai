@@ -1,160 +1,113 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import HeroSecondary from "@/components/heroSecondary";
-import { getMenuItems, getMenuCategories } from "@/services/wpAPI";
-import Loading from "@/app/loading";
-import MenuItems from "@/components/menu/Menu";
-<<<<<<< HEAD
-import CategoryButton from "@/components/ui/button/categoryButton";
-import ErrorMessage from "@/components/ui/ErrorMessage"; // ✅ Importuojame klaidų komponentą
-=======
-import CategorySwitcher from "@/components/menu/CategorySwitcher"; // Importuojame naują komponentą
->>>>>>> 320381a7dd15f79ed914927de880ab46994becec
+import CategoryPageClient from './CategoryPageClient';
+import Script from 'next/script';
+import { getMenuItems } from "@/services/wpAPI";
 
-export default function CategoryPage() {
-  const { category } = useParams();
-  const decodedCategory = decodeURIComponent(category);
-  const router = useRouter();
+export async function generateMetadata({ params }) {
+  const category = params.category;
 
-  const [categories, setCategories] = useState(null);
-  const [items, setItems] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-<<<<<<< HEAD
-  const [isError, setError] = useState(false);
-  const [originCategory, setOriginCategory] = useState("");
+  const categoryData = {
+    "kibinai": {
+      title: "Kibinai - skaniausi kibinai Vilniuje",
+      description: "Ragaukite tradicinius ir sultingus kibinus, gaminamus pagal autentiškus receptus mūsų kepyklėlėje Vilniuje.",
+      image: "/images/kibinai.jpg",
+    },
+    "mini-kibinukai": {
+      title: "Mini kibinukai - mažos, bet skanios užkandėlės",
+      description: "Puikus pasirinkimas vakarėliams ar kasdieniam užkandžiui – mažieji kibinukai nustebins savo skoniu.",
+      image: "/images/mini-kibinukai.jpg",
+    },
+    "saldyti": {
+      title: "Šaldyti produktai - patogumas Jūsų virtuvėje",
+      description: "Šaldyti kibinai ir kiti produktai – greitam ir patogiam pasiruošimui namuose.",
+      image: "/images/saldyti.jpg",
+    },
+    "saldumynai": {
+      title: "Saldumynai - saldūs skanėstai kiekvienai progai",
+      description: "Pasimėgaukite mūsų desertais ir saldžiais kepiniais, pagamintais su meile.",
+      image: "/images/saldumynai.jpg",
+    },
+    "simtalapiai": {
+      title: "Šimtalapiai - tradicinis lietuviškas desertas",
+      description: "Skanausite tikro lietuviško šimtalapio – ypatingo deserto ypatingoms progoms.",
+      image: "/images/simtalapiai.jpg",
+    },
+    "sakociai": {
+      title: "Šakočiai - šventiniai pyragai Jūsų stalui",
+      description: "Tradiciniai lietuviški šakočiai – puošnus desertas šventėms ir vaišėms.",
+      image: "/images/sakociai.jpg",
+    },
+    "gerimai": {
+      title: "Gėrimai - gaivūs ir gardūs pasirinkimai",
+      description: "Pasirinkite gaivinančius gėrimus prie mūsų gardžių kepinių.",
+      image: "/images/gerimai.jpg",
+    },
+    "uzkandziai": {
+      title: "Užkandžiai - skanūs pasirinkimai bet kokiai progai",
+      description: "Atraskite mūsų užkandžių asortimentą – nuo klasikinių iki gurmaniškų.",
+      image: "/images/uzkandziai.jpg",
+    },
+  };
+  
+  
 
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        setError(false);
-        const data = await getMenuCategories();
-        setCategories(data);
+  const categoryInfo = categoryData[category] || {
+    title: "Meniu - Kibinai Vilniuje",
+    description: "Pažiūrėkite mūsų meniu ir atraskite mėgstamus skanėstus!",
+    image: "/images/default.jpg",
+  };
 
-        const matchedCategory = data.find((cat) => cat.slug === decodedCategory);
-        if (matchedCategory) {
-          setOriginCategory(matchedCategory.originCategory);
-        } else {
-          setError(true);
-        }
-      } catch (error) {
-        console.error("Kategorijų gavimo klaida:", error);
-        setError(true);
-=======
-  const [originCategory, setOriginCategory] = useState("");
+  return {
+    title: categoryInfo.title,
+    description: categoryInfo.description,
+    openGraph: {
+      title: categoryInfo.title,
+      description: categoryInfo.description,
+      images: [
+        {
+          url: categoryInfo.image,
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
+}
 
-  useEffect(() => {
-    getMenuCategories().then((data) => {
-      setCategories(data);
-      const matchedCategory = data.find((cat) => cat.slug === decodedCategory);
-      if (matchedCategory) {
-        setOriginCategory(matchedCategory.originCategory);
->>>>>>> 320381a7dd15f79ed914927de880ab46994becec
-      }
-    }
-
-    fetchCategories();
-  }, [decodedCategory]);
-
-  useEffect(() => {
-    if (!originCategory) return;
-
-<<<<<<< HEAD
-    async function fetchMenuItems() {
-      try {
-        setLoading(true);
-        setError(false);
-
-        const data = await getMenuItems();
-        const filteredItems = data.filter((item) => item.kategorija === originCategory);
-        setItems(filteredItems);
-      } catch (error) {
-        console.error("Produktų gavimo klaida:", error);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchMenuItems();
-=======
-    setLoading(true);
-    getMenuItems().then((data) => {
-      const filteredItems = data.filter((item) => item.kategorija === originCategory);
-      setItems(filteredItems);
-      setLoading(false);
-    });
->>>>>>> 320381a7dd15f79ed914927de880ab46994becec
-  }, [originCategory]);
-
-  if (isError) {
-    return (
-      <main>
-        <HeroSecondary
-          title="Meniu"
-          breadcrumb={[
-            { label: "Pagrindinis", href: "/" },
-            { label: "Meniu", href: "/menu" },
-            { label: decodedCategory, href: `/menu/${category}` },
-          ]}
-        />
-        <div className="container mx-auto p-6">
-          <ErrorMessage message="Nepavyko įkelti duomenų. Bandykite vėliau." />
-        </div>
-      </main>
-    );
-  }
-
-  if (!categories) {
-    return <Loading />;
-  }
+export default async function CategoryPage() {
+  const menuItems = await getMenuItems();
 
   return (
-    <main>
-      <HeroSecondary
-        title="Meniu"
-        breadcrumb={[
-          { label: "Pagrindinis", href: "/" },
-          { label: "Meniu", href: "/menu" },
-          { label: originCategory || decodedCategory, href: `/menu/${category}` },
-        ]}
+    <>
+      {/* Product Schema */}
+      <Script
+        id="product-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Produktai - Kibinukai Vilniuje",
+            "itemListElement": menuItems.map((item, index) => ({
+              "@type": "Product",
+              "name": item.pavadinimas,
+              "description": item.aprasymas || "Skanus rankų darbo kibinas.",
+              "image": item.nuotrauka || "https://kibinukai.lt/images/default-product.jpg",
+              "url": `https://kibinukai.lt/menu/${item.kategorijaSlug || ''}`,
+              "offers": {
+                "@type": "Offer",
+                "priceCurrency": "EUR",
+                "price": item.kaina,
+                "availability": "https://schema.org/InStock",
+              },
+              "position": index + 1,
+            })),
+          }),
+        }}
       />
 
-      <div className="container mx-auto p-6">
-<<<<<<< HEAD
-        <div className="flex flex-row-reverse justify-center items-center flex-wrap w-full relative mb-5">
-          {categories.length > 0 ? (
-            categories.map(({ name, slug, image }, index) => {
-              const paddingTopValues = ["100px", "50px", "20px", "0px", "0px", "20px", "50px", "100px"];
-
-              return (
-                <div
-                  key={slug}
-                  className="flex flex-col items-center"
-                  style={{
-                    paddingTop: paddingTopValues[index % paddingTopValues.length], 
-                  }}
-                >
-                  <CategoryButton
-                    category={name}
-                    imageSrc={image}
-                    isActive={decodedCategory === slug}
-                    onClick={() => router.push(`/menu/${encodeURIComponent(slug)}`)}
-                  />
-                </div>
-              );
-            })
-          ) : (
-            <p className="text-center text-gray-500">Kategorijų nerasta.</p>
-          )}
-        </div>
-=======
-        {/* Kategorijų perjungimo mygtukai atskirame komponente */}
-        <CategorySwitcher categories={categories} decodedCategory={decodedCategory} router={router} />
->>>>>>> 320381a7dd15f79ed914927de880ab46994becec
-
-        {isLoading ? <Loading /> : <MenuItems items={items} />}
-      </div>
-    </main>
+      {/* Puslapio klientinė dalis */}
+      <CategoryPageClient />
+    </>
   );
 }

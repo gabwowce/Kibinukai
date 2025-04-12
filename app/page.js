@@ -2,9 +2,7 @@
 import OurProducts from "@/components/home/OurProducts";
 import Carousel from "../components/home/carousel";
 import Hero from "../components/home/hero";
-import CouponBanner from "@/components/home/couponBanner";
-import DeliveryBanner from "@/components/home/deliveryBanner";
-import Banners from "@/components/home/programmedBanners";
+import Banners from "@/components/home/homeBanners";
 import { FaExternalLinkAlt, FaBolt } from "react-icons/fa";
 
 

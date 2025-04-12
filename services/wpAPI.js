@@ -1,9 +1,15 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://kibinukai.local/wp-json/wp/v2";
-const API_MENU_ITEMS = `${API_BASE_URL}/menu_items?per_page=100`;
-const API_MENU_CATEGORIES = `${API_BASE_URL}/menu_category?per_page=100`;
-const API_GALLERY = `${API_BASE_URL}/gallery`;
+// ✅ WordPress Core API
+const WP_API_BASE_URL = "http://kibinukai.local/wp-json/wp/v2";
+const API_MENU_ITEMS = `${WP_API_BASE_URL}/menu_items?per_page=100`;
+const API_MENU_CATEGORIES = `${WP_API_BASE_URL}/menu_category?per_page=100`;
+const API_GALLERY = `${WP_API_BASE_URL}/gallery`;
+
+// ✅ Custom API, kurį pats sukūrei
+const CUSTOM_API_BASE_URL = "http://kibinukai.local/wp-json/custom/v1";
+const API_BANNERS = `${CUSTOM_API_BASE_URL}/banners`;
+
 
 // ✅ Gauti MENIU ELEMENTUS iš WP API
 export const getMenuItems = async () => {
@@ -57,3 +63,19 @@ export async function getGalleryImages() {
     alt_text: item.acf?.aprasymas || "Galerijos nuotrauka",
   }));
 }
+
+
+// ✅ Gauti BANERIUS iš WP API
+export const getBanners = async () => {
+  const response = await axios.get(API_BANNERS);
+
+  return response.data.map(item => ({
+    id: item.id,
+    bannerType: item.banner_type || "default",
+    desktopImage: item.desktop_image || "/placeholder-desktop.jpg",
+    mobileImage: item.mobile_image || "/placeholder-mobile.jpg",
+    link: item.link || "#",
+    altText: item.alt_text || "Banerio nuotrauka",
+    title: item.title || "",
+  }));
+};
