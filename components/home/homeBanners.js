@@ -45,7 +45,7 @@ export default function Banners() {
   }
 
   return (
-    <section className="container flex flex-col gap-10 lg:gap-20 py-10 lg:py-20">
+    <section className="container flex flex-col items-center gap-10 lg:gap-20 py-10 lg:py-20">
       {banners.map((banner) => (
         <Banner
           key={banner.id}

@@ -8,6 +8,8 @@ import MenuItems from "@/components/menu/Menu";
 import ErrorMessage from "@/components/ui/ErrorMessage"; // ✅ Importuojame klaidų komponentą
 
 import CategorySwitcher from "@/components/menu/CategorySwitcher"; // Importuojame naują komponentą
+import Banner from "@/components/home/reusableBanner";
+import { getBanners } from "@/services/wpAPI";
 
 
 export default function CategoryPageClient() {
@@ -20,17 +22,56 @@ export default function CategoryPageClient() {
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
   const [originCategory, setOriginCategory] = useState("");
+  const [displayCategoryName, setDisplayCategoryName] = useState(decodeURIComponent(category));
+  const [menuBanner, setMenuBanner] = useState(null);
 
+  useEffect(() => {
+    async function fetchMenuBanner() {
+      try {
+        const banners = await getBanners();
+        const menuBanner = banners.find((banner) => banner.bannerType === "menu");
+        if (menuBanner) {
+          setMenuBanner(menuBanner);
+        }
+      } catch (error) {
+        console.error("❌ Nepavyko užkrauti meniu banerio:", error);
+      }
+    }
+  
+    fetchMenuBanner();
+  }, []);
+
+  
+  const desiredOrder = [
+    "kibinai",
+    "mini-kibinukai",
+    "saldyti",
+    "saldumynai",
+    "simtalapiai",
+    "sakociai",
+    "uzkandziai",
+    "gerimai"
+
+    
+  ];
+  
   useEffect(() => {
     async function fetchCategories() {
       try {
         setError(false);
         const data = await getMenuCategories();
-        setCategories(data);
+        const filteredData = data.filter(cat => desiredOrder.includes(cat.slug));
+
+        const sortedData = filteredData.sort(
+          (a, b) => desiredOrder.indexOf(a.slug) - desiredOrder.indexOf(b.slug)
+        );
+  
+        setCategories(sortedData);
 
         const matchedCategory = data.find((cat) => cat.slug === decodedCategory);
         if (matchedCategory) {
           setOriginCategory(matchedCategory.originCategory);
+          setDisplayCategoryName(matchedCategory.name);
         } else {
           setError(true);
         }
@@ -73,7 +114,7 @@ export default function CategoryPageClient() {
           breadcrumb={[
             { label: "Pagrindinis", href: "/" },
             { label: "Meniu", href: "/menu" },
-            { label: decodedCategory, href: `/menu/${category}` },
+            { label: displayCategoryName, href: `/menu/${category}` },
           ]}
         />
         <div className="container mx-auto pt-40 flex-grow flex items-center justify-center">
@@ -94,15 +135,15 @@ export default function CategoryPageClient() {
         breadcrumb={[
           { label: "Pagrindinis", href: "/" },
           { label: "Meniu", href: "/menu" },
-          { label: originCategory || decodedCategory, href: `/menu/${category}` },
+          { label: displayCategoryName, href: `/menu/${category}` },
         ]}
       />
 
-      <div className="container mx-auto p-6">
+      <div className="container mx-auto pb-6 flex flex-col items-center justify-center">
         <div className="flex flex-row-reverse justify-center items-center flex-wrap w-full relative mb-5">
           {categories.length > 0 ? (
             categories.map(({ name, slug, image }, index) => {
-              const paddingTopValues = ["100px", "50px", "20px", "0px", "0px", "20px", "50px", "100px"];
+              const paddingTopValues = ["10px", "5px", "2px", "0px", "0px", "2px", "5px", "10px"];
 
               return (
                 <div
@@ -127,6 +168,18 @@ export default function CategoryPageClient() {
 
         {isLoading ? <Loading /> : <MenuItems items={items} />}
       </div>
+      {menuBanner && (
+        <section className="container w-full h-auto overflow-hidden mt-10">
+          <Banner
+            img={menuBanner.desktopImage}
+            imgMobile={menuBanner.mobileImage}
+            alt={menuBanner.altText}
+          >
+            {/* Galima pridėti ir papildomą turinį, jei reikia */}
+          </Banner>
+        </section>
+      )}
+
     </main>
   );
 }

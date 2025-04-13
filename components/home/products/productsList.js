@@ -10,6 +10,8 @@ import skanestai from "@/public/assets/products/skanestai-product.png";
 import simtalapiai from "@/public/assets/products/simtalapis-product.png";
 import sakociai from "@/public/assets/products/sakociai-product.png";
 import uzkandziai from "@/public/assets/products/kiti-product.png";
+import { useTailwindBreakpoints } from "@/components/useBreakpoint";
+
 
 const products = [
   { img: kibinai, title: "Kibinai",slug: "DIDELI KIBINAI", slug2: "kibinai", desc: "Tradiciniai, rankų darbo kibinai su sultingais įdarais – tobulas pasirinkimas kiekvienai progai.", mode: 0},
@@ -23,17 +25,8 @@ const products = [
 ];
 
 export default function ProductsList({ priceMap }) {
-  const [isMdUp, setIsMdUp] = useState(false);
+  const { isMdUp } = useTailwindBreakpoints();
 
-  useEffect(() => {
-    const checkSize = () => {
-      setIsMdUp(window.innerWidth >= 768);
-    };
-
-    checkSize();
-    window.addEventListener("resize", checkSize);
-    return () => window.removeEventListener("resize", checkSize);
-  }, []);
 
   return (
     <>

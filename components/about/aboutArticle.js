@@ -6,9 +6,10 @@ export default function AboutArticle({className, highlightedWord, title, body })
               <span className="text-outrageous-orange-400 font-display">{highlightedWord}</span> {title}
             </h2>
           </header>
-          <p className="mt-4 leading-[29px]">
-          {body}
+          <p className="mt-4 leading-normal xl:leading-[29px]">
+            {body}
           </p>
+
         </article>
     );
 }

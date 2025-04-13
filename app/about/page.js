@@ -100,7 +100,7 @@ export default function About() {
           <div className="flex flex-col-reverse xl:flex-row">
             <DecorationFigure className="xl:justify-end" img={kibinai2} alt="" />
             <AboutArticle
-              className="w-full xl:w-2/3 pr-10"
+              className="w-full xl:w-2/3 xl:pl-10"
               highlightedWord="Lankstumas"
               title="– mūsų stiprybė"
               body="Galime paruošti nuo vieno kibino iki kelių tūkstančių vienam užsakymui. 

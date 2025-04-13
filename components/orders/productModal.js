@@ -19,7 +19,7 @@ export default function ProductModal({ item, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-5">
       <div className="bg-white p-6 rounded-lg shadow-lg relative w-96">
         {/* Uždarymo mygtukas */}
         <button className="absolute top-3 right-3 text-gray-600 hover:text-gray-800" onClick={onClose}>

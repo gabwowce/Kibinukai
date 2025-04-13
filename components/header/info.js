@@ -8,10 +8,10 @@ export default function Info() {
             <div className="bg-orange-lighter border-b-2 border-[#FFF5F0] py-3"> 
                 <div className="container flex justify-between items-center">
                     <div className="flex items-center justify-start gap-10 font-semibold">
-                        <ContactInfo className="flex flex-row gap-5"/>
+                        <ContactInfo className="flex flex-row gap-4 xl:gap-5"/>
                     </div>
                     <div className="flex flex-row justify-center items-center gap-5">
-                        <p className="pt-1 text-sm">Sekite naujienas</p>
+                        <p className=" hidden xl:block pt-1 text-sm">Sekite naujienas</p>
                         <SocialMedia/>
                     </div>
                 </div>
