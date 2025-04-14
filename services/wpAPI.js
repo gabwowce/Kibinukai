@@ -1,23 +1,19 @@
 import axios from "axios";
 
-// ✅ WordPress Core API
-const WP_API_BASE_URL = "http://kibinukai.local/wp-json/wp/v2";
+const WP_API_BASE_URL = process.env.NEXT_PUBLIC_WP_API_BASE_URL;
+const CUSTOM_API_BASE_URL = process.env.NEXT_PUBLIC_CUSTOM_API_BASE_URL;
+
 const API_MENU_ITEMS = `${WP_API_BASE_URL}/menu_items?per_page=100`;
 const API_MENU_CATEGORIES = `${WP_API_BASE_URL}/menu_category?per_page=100`;
 const API_GALLERY = `${WP_API_BASE_URL}/gallery`;
 
-// ✅ Custom API, kurį pats sukūrei
-const CUSTOM_API_BASE_URL = "http://kibinukai.local/wp-json/custom/v1";
 const API_BANNERS = `${CUSTOM_API_BASE_URL}/banners`;
-
 
 // ✅ Gauti MENIU ELEMENTUS iš WP API
 export const getMenuItems = async () => {
   const response = await axios.get(API_MENU_ITEMS);
 
-  console.log("API duomenys:", response.data); // Patikrinimui
-
-  return response.data.map(item => ({
+  const items = response.data.map(item => ({
     id: item.id,
     pavadinimas: item.acf?.pavadinimas || "Nežinomas",
     aprasymas: item.acf?.aprasymas || "Aprašymas nepateiktas",
@@ -26,14 +22,18 @@ export const getMenuItems = async () => {
     image: item.acf?.nuotrauka?.sizes?.medium || item.acf?.nuotrauka || null,
     matavimo_vienetas: item.acf?.matavimo_vienetas || "vnt.",
     kategorija: item.acf?.kategorija || "Kita",
+    kategorijaSlug: item.acf?.kategorija?.toLowerCase().replace(/\s+/g, '-').normalize('NFD').replace(/[\u0300-\u036f]/g, "") || "kita",
     subkategorija: item.acf?.subkategorija || "Bendri produktai",
-  }));
+  }));  
+
+  return items;
 };
+
 
 export const getMenuCategories = async () => {
   const response = await axios.get(API_MENU_CATEGORIES);
 
-  console.log("Gautas kategorijų sąrašas iš API:", response.data); // 👈 Patikrinimui
+
 
   return response.data.map(category => ({
     id: category.id,

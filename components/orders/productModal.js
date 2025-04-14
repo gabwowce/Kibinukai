@@ -20,30 +20,30 @@ export default function ProductModal({ item, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-5">
-      <div className="bg-white p-6 rounded-lg shadow-lg relative w-96">
+      <div className="bg-white rounded-lg shadow-lg relative w-[700px] p-10">
         {/* Uždarymo mygtukas */}
         <button className="absolute top-3 right-3 text-gray-600 hover:text-gray-800" onClick={onClose}>
           <IoClose size={24} />
         </button>
 
         {/* Produkto pavadinimas ir aprašymas */}
-        <h2 className="text-xl font-bold text-gray-900">{item.pavadinimas}</h2>
-        <p className="text-sm text-gray-600">{item.aprasymas}</p>
+        <h2 className="text-xl lg:text-2xl font-bold text-gray-900">{item.pavadinimas}</h2>
+        <p className="text-sm lg:text-base text-gray-600">{item.aprasymas}</p>
 
         {/* Produktas su paveikslėliu */}
         {item.image && (
           <Image
             src={item.image}
             alt={item.pavadinimas}
-            width={100}
-            height={100}
+            width={200}
+            height={200}
+            sizes="00px"
             className="rounded-lg my-4 mx-auto"
-            unoptimized
           />
         )}
 
         {/* Kiekio pasirinkimas su matavimo vienetu */}
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex items-center justify-center gap-3 mt-10">
           <button
             className="bg-gray-200 px-3 py-1 rounded-md"
             onClick={() =>
@@ -52,7 +52,7 @@ export default function ProductModal({ item, onClose }) {
           >
             -
           </button>
-          <span className="text-lg font-semibold">
+          <span className="text-base xl:text-lg font-semibold">
             {quantity} {item.matavimo_vienetas || "vnt."} {/* Matavimo vienetas */}
           </span>
           <button
@@ -61,11 +61,12 @@ export default function ProductModal({ item, onClose }) {
           >
             +
           </button>
+          
         </div>
 
         {/* Pridėti į krepšelį mygtukas */}
         <button
-          className="w-full bg-outrageous-orange-400 text-white py-2 rounded-lg mt-4 hover:bg-orange-600"
+          className="text-base xl:text-xl w-full bg-outrageous-orange-400 text-white py-2 rounded-lg mt-4 hover:bg-orange-600"
           onClick={handleAddToCart}
         >
           Į KREPŠELĮ {(item.kaina * quantity).toFixed(2)} €

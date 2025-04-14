@@ -17,6 +17,7 @@ export default function Bubble() {
         src={elipse}
         alt="Burbulas"
         fill
+        sizes="(max-width: 768px) 500px, (max-width: 1200px) 800px, 1000px"
         className="object-cover"
       />
     </div>

@@ -1,13 +1,31 @@
 "use client";
-
+import dynamic from 'next/dynamic';
 import { useRouter } from "next/navigation";
 import Steps from "@/components/orders/Steps";
 import { useState } from "react";
-import Modal from "@/components/ui/Modal";
 import RadioGroup from "@/components/ui/RadioGroup";
+const CheckoutInfoModal = dynamic(() => import('@/components/orders/CheckoutInfoModal'), { ssr: false });
+import { useCart } from '@/context/cartContext';
+import { useEffect } from 'react';
+
+const ReactDatePicker = dynamic(() => import("react-datepicker"), { ssr: false });
+
+import "react-datepicker/dist/react-datepicker.css";
+import "@/style/datepicker-custom.css";
+
+import UniversalInput from "@/components/forms/UniversalInput";
+import UniversalTextarea from "@/components/forms/UniversalTextarea";
+const AddressForm = dynamic(() => import('@/components/forms/AddressForm'), {
+  ssr: false,
+  loading: () => <p>Kraunama forma...</p>,
+});
+
+
+
 
 export default function CheckoutForm() {
   const router = useRouter();
+  const { clearCart, cart } = useCart();
 
   const [orderType, setOrderType] = useState("isankstinis");
 
@@ -15,41 +33,129 @@ export default function CheckoutForm() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalShown, setModalShown] = useState(false);
   const [contactType, setContactType] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [comments, setComments] = useState("");
+  
 
   // Nauji state laukeliai adresui
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [houseNumber, setHouseNumber] = useState("");
   const [apartment, setApartment] = useState("");
-  const [postalCode, setPostalCode] = useState("");
+  const [addressNotes, setAddressNotes] = useState("");
+
+
   const [errors, setErrors] = useState({});
   const [isShaking, setIsShaking] = useState(false);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [dots, setDots] = useState('');
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
   
     const newErrors = {};
   
+    // Griebiam reikalingus laukus
+    const nameInput = e.target.elements.namedItem("name").value.trim();
+    const phoneInput = e.target.elements.namedItem("phone").value.trim();
+    const emailInput = e.target.elements.namedItem("email")?.value.trim();
+    const commentsInput = e.target.elements.namedItem("comments")?.value;
+  
+    // Tikrinam: baziniai laukeliai
+    if (!nameInput) newErrors.name = "Įveskite vardą";
+    if (!phoneInput) newErrors.phone = "Įveskite telefono numerį";
     if (!orderType) newErrors.orderType = "Pasirinkite užsakymo tipą";
     if (!deliveryType) newErrors.deliveryType = "Pasirinkite pristatymo būdą";
   
-    const nameInput = e.target.elements.namedItem("name").value.trim();
-    if (!nameInput) newErrors.name = "Įveskite vardą";
+    // Tikrinam: adresas, jei pasirinktas pristatymas
+    if (deliveryType === "pristatymas") {
+      if (!city.trim()) newErrors.city = "Įveskite miestą";
+      if (!street.trim()) newErrors.street = "Įveskite gatvę";
+      if (!houseNumber.trim()) newErrors.houseNumber = "Įveskite namo numerį";
+    }
   
-    const phoneInput = e.target.elements.namedItem("phone").value.trim();
-    if (!phoneInput) newErrors.phone = "Įveskite telefono numerį";
-  
-    setErrors(newErrors);
-  
+    // Jei yra bent viena klaida — stabdom siuntimą
     if (Object.keys(newErrors).length > 0) {
-      setIsShaking(true); // Triggerinam animaciją
-      setTimeout(() => setIsShaking(false), 500); // Po pusės sekundės nuimam klasę
+      setErrors(newErrors);
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 500);
+      setIsSubmitting(false); // būtinai, kad neužstrigtų submit'inimas
       return;
     }
   
-    router.push("/orders/confirmation");
+    // Surink formos duomenis
+    const deliveryDateInput = selectedDate ? selectedDate.toISOString().split("T")[0] : "";
+    const deliveryTimeInput = selectedTime ? selectedTime.toTimeString().split(" ")[0].substring(0, 5) : "";
+  
+    const formData = {
+      name: nameInput,
+      phone: phoneInput,
+      email: emailInput,
+      contactType,
+      orderType,
+      deliveryType,
+      address: deliveryType === "pristatymas"
+        ? {
+            city,
+            street,
+            houseNumber,
+            apartment,
+            addressNotes,
+          }
+        : undefined,
+      deliveryDate: orderType === "isankstinis" && (deliveryDateInput || deliveryTimeInput)
+        ? `${deliveryDateInput} ${deliveryTimeInput}`
+        : undefined,
+      comments: commentsInput,
+      cartItems: cart,
+    };
+  
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+  
+      const result = await response.json();
+  
+      if (result.success) {
+        e.target.reset();
+        clearCart();
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("cart");
+        }
+        router.push("/orders/confirmation");
+      } else {
+        alert("Nepavyko išsiųsti užsakymo. Klaida: " + result.error);
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Įvyko klaida siunčiant užsakymą. Bandykite dar kartą.");
+    } finally {
+      setIsSubmitting(false); // visada pabaigoje
+    }
   };
+  
+  
+  useEffect(() => {
+    if (isSubmitting) {
+      const interval = setInterval(() => {
+        setDots((prev) => (prev.length >= 3 ? '' : prev + '.'));
+      }, 500); // Kas 0.5 sekundės pridės tašką
+  
+      return () => clearInterval(interval); // Išvalom intervalą kai baigiam siuntimą
+    } else {
+      setDots('');
+    }
+  }, [isSubmitting]);
   
   
 
@@ -72,48 +178,65 @@ export default function CheckoutForm() {
         ← Grįžti į krepšelį
       </button>
 
-      <h2 className="text-2xl font-bold text-brown mb-6">Kontaktinė forma</h2>
+      <h2 className=" font-bold text-brown mb-6 text-l md:text-xl">Kontaktinė forma</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
 
         {/* Vardas */}
-        <div className="pb-6 border-b border-orange-200">
-          <label className="block text-brown mb-1">Vardas</label>
-          <input
-            type="text"
-            name="name"
-            className={`w-full border rounded-md px-4 py-2 ${errors.name ? "border-red-500" : ""}`}
-            placeholder="Įveskite vardą"
-          />
-          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-        </div>
+        <UniversalInput
+          label="Vardas"
+          name="name"
+          value={name}
+          onChange={(value) => {
+            setName(value);
+            if (errors.name) setErrors(prev => ({ ...prev, name: undefined }));
+          }}
+          placeholder="Įveskite vardą"
+          error={errors.name}
+        />
+
 
 
         {/* Telefono numeris */}
-        <div className="pb-6 border-b border-orange-200">
-          <label className="block text-brown mb-1">Telefono numeris</label>
-          <input
-            type="tel"
-            name="phone"
-            className={`w-full border rounded-md px-4 py-2 ${errors.phone ? "border-red-500" : ""}`}
-            placeholder="+370..."
-          />
-          {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-        </div>
+        <UniversalInput
+          label="Telefono numeris"
+          name="phone"
+          value={phone}
+          onChange={(value) => {
+            setPhone(value);
+            if (errors.phone) setErrors(prev => ({ ...prev, phone: undefined }));
+          }}
+          placeholder="+370..."
+          error={errors.phone}
+          type="tel"
+        />
+
 
 
         {/* El. paštas */}
-        <div className="pb-6 border-b border-orange-200">
-          <label className="block text-brown mb-1">El. paštas (pasirinktinai)</label>
-          <input
-            type="email"
-            className="w-full border rounded-md px-4 py-2"
-            placeholder="mail@example.com"
-          />
-        </div>
+        <UniversalInput
+          label="El. paštas (pasirinktinai)"
+          name="email"
+          value={email}
+          onChange={(value) => setEmail(value)}
+          placeholder="mail@example.com"
+          type="email"
+        />
+
+
+        {/* Komentarai (neprivaloma) */}
+        <UniversalTextarea
+          label="Pastabos"
+          name="comments"
+          value={comments}
+          onChange={(value) => setComments(value)}
+          placeholder="Jūsų pastabos..."
+        />
+
+
 
         {/* Kontaktavimo būdas */}
-        <div className="pb-6 border-b border-orange-200">
+        <div className="pb-6 border-b border-orange-200 text-sm md:text-base">
           <RadioGroup
             name="contactType"
             label="Kaip norite, kad susisiektume?"
@@ -128,7 +251,7 @@ export default function CheckoutForm() {
         </div>
 
         {/* Užsakymo tipas */}
-        <div className="pb-6 border-b border-orange-200">
+        <div className="pb-6 border-b border-orange-200 text-sm md:text-base">
           <RadioGroup
             name="orderType"
             label="Užsakymo tipas"
@@ -154,9 +277,45 @@ export default function CheckoutForm() {
           {errors.orderType && <p className="text-red-500 text-sm mt-1">{errors.orderType}</p>}
         </div>
 
+        {/* Pageidaujama pristatymo data — rodoma tik jei išankstinis užsakymas */}
+        {orderType === "isankstinis" && (
+          <div className="pb-6 border-b border-orange-200 text-sm md:text-base">
+            <label className="block text-brown mb-1">Pageidaujama pristatymo data ir laikas</label>
+            <div className="flex space-x-4">
+              {/* Datos pasirinkimas */}
+              <ReactDatePicker 
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="Pasirinkite datą"
+                className="w-full border rounded-md px-4 py-2 myDatePicker" 
+                // myDatePicker yra custom klasių pavadinimas,
+                // kurį aprašysite .css faile
+                minDate={new Date()}
+              />
+              {/* Laiko pasirinkimas (tik 24 val. formatas) */}
+              <ReactDatePicker 
+                selected={selectedTime}
+                onChange={(time) => setSelectedTime(time)}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Laikas"
+                dateFormat="HH:mm"
+                timeFormat="HH:mm"
+                placeholderText="Pasirinkite laiką"
+                className="w-full border rounded-md px-4 py-2 myDatePicker"
+              />
+            </div>
+          </div>
+        )}
+
+
+
+
 
         {/* Pristatymo būdas */}
-        <div className="pb-6 border-b border-orange-200">
+        <div className="pb-6 border-b border-orange-200 text-sm md:text-base">
           <RadioGroup
             name="delivery"
             label="Pristatymo būdas"
@@ -166,7 +325,7 @@ export default function CheckoutForm() {
               maybeShowModal(selectedValue);
             }}
             options={[
-              { value: "atsiimti", label: "Atsiėmimas Vilniuje, Ūmedžių g. 7" },
+              { value: "atsiimti", label: "Atsiėmimas Vilniuje, Ūmedžių g. 10-2" },
               { value: "pristatymas", label: "Pristatymas į namus" },
             ]}
           />
@@ -176,139 +335,52 @@ export default function CheckoutForm() {
 
         {/* Papildomi adresai tik jei pasirinkta "pristatymas" */}
         {deliveryType === "pristatymas" && (
-          <div className="space-y-4 pb-6 border-b border-orange-200 bg-orange-50 border-l-4 border-orange-300 p-4 rounded-md">
-            <p className="font-medium text-brown">Pristatymo adresas:</p>
-
-            {/* Miestas */}
-            <div>
-              <label className="block text-brown mb-1">Miestas</label>
-              <input
-                type="text"
-                required
-                className="w-full border rounded-md px-4 py-2"
-                placeholder="Vilnius"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </div>
-
-            {/* Gatvė */}
-            <div>
-              <label className="block text-brown mb-1">Gatvė</label>
-              <input
-                type="text"
-                required
-                className="w-full border rounded-md px-4 py-2"
-                placeholder="Ūmedžių g."
-                value={street}
-                onChange={(e) => setStreet(e.target.value)}
-              />
-            </div>
-
-            {/* Namo ir buto numeris */}
-            <div className="flex space-x-4">
-              <div className="flex-1">
-                <label className="block text-brown mb-1">Namo numeris</label>
-                <input
-                  type="text"
-                  required
-                  className="w-full border rounded-md px-4 py-2"
-                  placeholder="12"
-                  value={houseNumber}
-                  onChange={(e) => setHouseNumber(e.target.value)}
-                />
-              </div>
-
-              <div className="flex-1">
-                <label className="block text-brown mb-1">Buto numeris (jei yra)</label>
-                <input
-                  type="text"
-                  className="w-full border rounded-md px-4 py-2"
-                  placeholder="45"
-                  value={apartment}
-                  onChange={(e) => setApartment(e.target.value)}
-                />
-              </div>
-            </div>
-
-            {/* Pašto kodas */}
-            <div>
-              <label className="block text-brown mb-1">Pašto kodas (jei žinomas)</label>
-              <input
-                type="text"
-                className="w-full border rounded-md px-4 py-2"
-                placeholder="LT-XXXXX"
-                value={postalCode}
-                onChange={(e) => setPostalCode(e.target.value)}
-              />
-            </div>
-          </div>
+          <AddressForm
+            city={city}
+            setCity={(value) => {
+              setCity(value);
+              if (errors.city) setErrors(prev => ({ ...prev, city: undefined }));
+            }}
+            street={street}
+            setStreet={(value) => {
+              setStreet(value);
+              if (errors.street) setErrors(prev => ({ ...prev, street: undefined }));
+            }}
+            houseNumber={houseNumber}
+            setHouseNumber={(value) => {
+              setHouseNumber(value);
+              if (errors.houseNumber) setErrors(prev => ({ ...prev, houseNumber: undefined }));
+            }}
+            apartment={apartment}
+            setApartment={setApartment}
+            addressNotes={addressNotes}
+            setAddressNotes={setAddressNotes}
+            errors={errors}
+          />
         )}
+
+
 
         {/* Submit */}
         <div>
           <button
             type="submit"
-            className="w-full bg-[#D9480F] text-white py-3 rounded-lg font-semibold hover:bg-[#b53c0c] transition-colors duration-200"
+            disabled={isSubmitting}
+            className={`w-full bg-[#D9480F] text-white py-3 rounded-lg font-semibold transition-colors duration-200 ${
+              isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-[#b53c0c]"
+            }`}
           >
-            Pateikti užsakymą
+            {isSubmitting ? `Siunčiama${dots}` : "Pateikti užsakymą"}
           </button>
+
+
         </div>
 
         </form>
 
 
       {/* Modal: svarbi info */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-  <div className="space-y-6">
-
-    {/* Antraštė */}
-    <h3 className="text-xl font-extrabold text-[#D9480F] uppercase text-center leading-snug">
-      Svarbi informacija prieš užsakant
-    </h3>
-
-    {/* Blokai */}
-    <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-md shadow-sm space-y-2">
-      <p className="text-base font-semibold text-red-700">🔴 Tos pačios (darbo) dienos užsakymai</p>
-      <p className="text-sm text-red-800 leading-relaxed">
-        Užsakymą pateikite iki <strong className="text-red-900">12:00 val.</strong>. 
-        Paruošimas trunka nuo <strong className="text-red-900">2,5 val.</strong> ir priklauso nuo užimtumo bei kiekio.
-      </p>
-    </div>
-
-    <div className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-md shadow-sm space-y-2">
-      <p className="text-base font-semibold text-orange-700">🟠 Savaitgalio užsakymai</p>
-      <p className="text-sm text-orange-800 leading-relaxed">
-        Užsakymus pateikite iki <strong className="text-orange-900">penktadienio 10:00–11:00 val.</strong>.<br />
-        Pristatymas ir atsiėmimas nuo <strong className="text-orange-900">šeštadienio 10:00 val.</strong>
-      </p>
-    </div>
-
-    <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md shadow-sm space-y-2">
-      <p className="text-base font-semibold text-yellow-700">🟡 Šimtalapių ir šakočių gamyba</p>
-      <p className="text-sm text-yellow-800 leading-relaxed">
-        Gamyba trunka <strong className="text-yellow-900">2–4 darbo dienas</strong>.
-      </p>
-    </div>
-
-    {/* CTA */}
-    <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-md shadow-sm space-y-2">
-      <p className="text-base font-semibold text-green-700">✅ Greiti užsakymai?</p>
-      <p className="text-sm text-green-800 leading-relaxed">
-        Rekomenduojame naudotis:{" "}
-        <a
-          className="text-[#D9480F] underline font-semibold"
-          href="https://www.negaminsiu.lt"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          www.negaminsiu.lt
-        </a>{" "}
-        arba programėle <strong>Bolt</strong>.
-      </p>
-    </div>
-  </div>
-</Modal>
+      <CheckoutInfoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
 
     </section>

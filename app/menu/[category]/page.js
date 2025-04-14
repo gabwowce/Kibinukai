@@ -2,7 +2,7 @@ import CategoryPageClient from './CategoryPageClient';
 import Script from 'next/script';
 import { getMenuItems } from "@/services/wpAPI";
 
-export async function generateMetadata({ params }) {
+export function generateMetadata({ params }) {
   const category = params.category;
 
   const categoryData = {

@@ -21,11 +21,14 @@ export function OrderNow() {
       <MessageFrame className="inline-flex items-center px-3 pt-3 pb-2 lg:px-6 lg:pt-5 lg:pb-3 space-x-2 lg:space-x-4">
         {/* Phone Icon */}
         <div className="flex-shrink-0">
-          <Image 
-            src={phoneIcon} 
-            alt="Yellow phone call icon" 
-            className="w-10 h-10 lg:w-14 lg:h-14 xl:w-16 xl:h-16" // Icon with consistent size
-          />
+        <Image 
+          src={phoneIcon} 
+          alt="Yellow phone call icon" 
+          width={64}
+          height={64}
+          className="w-10 h-10 lg:w-14 lg:h-14 xl:w-16 xl:h-16"
+        />
+
         </div>
   
         {/* Text Content */}
@@ -48,11 +51,41 @@ export function OrderNow() {
             <p className="text-h3">Kibinukai</p>
         </div>
         <div className="inline-flex items-center justify-center space-x-1 lg:space-x-2">
-            <Image src={star} alt="star" className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
-            <Image src={star} alt="star" className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
-            <Image src={star} alt="star" className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
-            <Image src={star} alt="star" className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
-            <Image src={star} alt="star" className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"/>
+          <Image 
+            src={star} 
+            alt="" 
+            width={24}
+            height={24}
+            className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
+          />
+          <Image 
+            src={star} 
+            alt="" 
+            width={24}
+            height={24}
+            className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
+          />
+          <Image 
+            src={star} 
+            alt="" 
+            width={24}
+            height={24}
+            className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
+          />
+          <Image 
+            src={star} 
+            alt="" 
+            width={24}
+            height={24}
+            className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
+          />
+          <Image 
+            src={star} 
+            alt="" 
+            width={24}
+            height={24}
+            className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
+          />
             <p className="text-gray-500 text-h4 pt-1">4,6</p>
         </div>
         

@@ -54,7 +54,8 @@ export default function GallerySection() {
             height={200}
             alt={img.alt_text}
             className="rounded-lg object-cover"
-            unoptimized
+  
+            loading="lazy"
           />
         ))}
       </div>

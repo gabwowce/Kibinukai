@@ -9,8 +9,8 @@ const MenuItem = ({ item }) => {
   return (
     <>
       <div className="flex items-center justify-between p-4 border-b-2 border-gray-40">
-        <div>
-          <h3 className="text-lg font-bold text-gray-900">{item.pavadinimas}</h3>
+        <div className="w-2/3">
+          <h3 className="text-sm md:text-lg font-bold text-gray-900 pr-4">{item.pavadinimas}</h3>
           {/* <p className="text-sm text-gray-600">{item.aprasymas}</p> */}
           <div className="flex items-center space-x-2">
             {item.senaKaina && <span className="text-gray-500 line-through">{item.senaKaina} €</span>}
@@ -24,13 +24,12 @@ const MenuItem = ({ item }) => {
               alt={item.pavadinimas}
               width={100}
               height={100}
-              className="rounded-lg object-contain shadow-sm bg-white"
+              sizze="100px"
+              className="rounded-lg object-contain shadow-sm bg-white "
               unoptimized
             />
           ) : (
-            <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
-              No Image
-            </div>
+            <><div className="w-10"></div></>
           )}
           <button
             onClick={() => setIsModalOpen(true)}

@@ -8,7 +8,7 @@ export default function Steps({ currentStep = 1 }) {
   const steps = [
     { number: 1, label: "Peržiūrėti krepšelį", description: "Patikrinkite užsakymą", path: "/orders" },
     { number: 2, label: "Kontaktinė forma", description: "Įveskite savo duomenis", path: "/checkout" },
-    { number: 3, label: "Patvirtinimas", description: "Sulauksite mūsų skambučio", path: "/confirmation" },
+    { number: 3, label: "Patvirtinimas", description: "Susisieksime artimiausiu metu", path: "/confirmation" },
   ];
 
   const handleStepClick = (step) => {
@@ -62,7 +62,7 @@ export default function Steps({ currentStep = 1 }) {
 
             {/* Step numeris / ikona */}
             <div
-              className={`w-8 h-8 flex items-center justify-center rounded-full text-white text-sm font-semibold z-10 transition-colors duration-300 ${
+              className={`w-6 h-6 md:w-8 md:h-8 flex items-center justify-center rounded-full text-white text-sm font-semibold z-10 transition-colors duration-300 ${
                 isActive || isCompleted ? "bg-[#D9480F]" : "bg-gray-300"
               } ${
                 isCompleted ? "group-hover:bg-[#b53c0c]" : ""
@@ -72,7 +72,7 @@ export default function Steps({ currentStep = 1 }) {
             </div>
 
             {/* Step tekstas */}
-            <div className="text-sm mt-2 text-center">
+            <div className=" text-xs md:text-sm mt-2 text-center h-10">
               <div className={`${isActive ? "font-bold text-brown" : "text-gray-600"} transition-colors duration-300`}>
                 {step.label}
               </div>

@@ -39,8 +39,8 @@ export default function Cart({ cart, updateQuantity, removeFromCart }) {
             <span>{totalAmount.toFixed(2)} €</span>
           </div>
 
-          <p className="text-sm text-gray-600 mb-3 text-center">
-            Užpildykite kontaktinę formą — mes patikslinsime jūsų užsakymą telefonu ar el. paštu.
+          <p className="text-xs md:text-sm text-gray-600 mb-3 text-center">
+            Užpildykite kontaktinę formą ir mes su Jūmis susisieksime.
           </p>
 
           <button
@@ -51,8 +51,8 @@ export default function Cart({ cart, updateQuantity, removeFromCart }) {
           </button>
         </>
       ) : (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Jūsų krepšelis tuščias.</p>
+        <div className="text-center py-0">
+          <p className="text-gray-500 text-lg py-12">Jūsų krepšelis tuščias.</p>
           
           <button
             className="mt-4 inline-block w-full bg-[#D9480F] text-white py-3 px-6 rounded-lg text-center font-semibold"

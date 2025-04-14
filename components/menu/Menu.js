@@ -20,7 +20,7 @@ const MenuItems = ({ items }) => {
     <div className=" p-6 mx-auto">
       {Object.keys(groupedBySubcategory).map((subcategory) => (
         <div key={subcategory} className="mb-8">
-          <h3 className="text-2xl font-semibold pb-2 mb-4">
+          <h3 className="text-xl xl:text-2xl font-semibold pb-2 mb-4">
             {subcategory
               .toLowerCase() // Viską paverčia mažosiomis raidėmis
               .replace(/^(\w)/, (char) => char.toUpperCase())} {/* Pirmą raidę daro didžiąją */}

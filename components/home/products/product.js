@@ -46,6 +46,9 @@ export default function Product({title, desc, img, index, mode, isMdUp, price, u
           <Image
             src={img}
             alt={title}
+            width={250}
+            height={250}
+            sizes="(max-width: 640px) 100px, (max-width: 768px) 120px, (max-width: 1024px) 150px, (max-width: 1280px) 200px, 250px"
             className="rounded-full xs:w-[100px] xs:h-[100px] sm:w-[120px] 
                        sm:h-[120px] md:w-[150px] md:h-[150px] lg:w-[200px] 
                        lg:h-[200px] xl:w-[250px] xl:h-[250px] object-cover 
@@ -55,11 +58,17 @@ export default function Product({title, desc, img, index, mode, isMdUp, price, u
           <Image
             src={arrowSm}
             alt="Arrow"
+            width={10}
+            height={10}
+            sizes="10px"
             className={`block md:hidden ${arrowClass}`}
           />
           <Image
             src={arrow}
             alt="Arrow"
+            width={20}
+            height={20}
+            sizes="20px"
             className={`hidden md:block ${arrowClass}`}
           />
           <div className={`absolute -right-8 ${priceStyle2}`} style={priceStyle}>

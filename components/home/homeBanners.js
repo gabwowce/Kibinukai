@@ -11,13 +11,11 @@ export default function Banners() {
 
   useEffect(() => {
     const fetchBanners = async () => {
-      console.log("🚀 Fetchinam home bannerius...");
       try {
         const data = await getBanners();
         const homeBanners = data.filter(
           (banner) => banner.bannerType === "home"
         );
-        console.log("🎯 Gauti home banneriai:", homeBanners);
         setBanners(homeBanners);
       } catch (error) {
         console.error("❌ Nepavyko užkrauti home banerių:", error);

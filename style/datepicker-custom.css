@@ -1,0 +1,46 @@
+/* Pagrindinė konteinerio dalis */
+.myDatePicker {
+  /* Galite keisti input laukelio dizainą per Tailwind klases arba paprastai: */
+  /* border-color: #D9480F; */
+}
+
+/* Viso datepickerio overlay stilius */
+.react-datepicker-popper {
+  z-index: 9999; /* kad neužstotų kiti elementai */
+}
+
+/* Datepicker header fonas */
+.react-datepicker__header {
+  background-color: #d9480f;
+}
+/* Pasirinktas laikas — selected time */
+.react-datepicker__time-list-item--selected {
+  background-color: #d9480f;
+  color: #fff;
+}
+
+/* Mėnuo, savaitės dienos spalvos */
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header,
+.react-datepicker__day-name {
+  color: #fff; /* jei norite baltų raidžių */
+}
+
+/* Pažymėta diena, hover ir t.t. */
+.react-datepicker__day:hover,
+.react-datepicker__day--selected {
+  background-color: #d9480f;
+}
+
+/* Laiko pasirinkimo konteinerio fono užspalvinimas */
+.react-datepicker__time-container .react-datepicker__time {
+  background: #fdf1e7; /* švelni oranžinė/pilkšva, kad išsiskirtų */
+}
+
+/* Laiko juostos valandų/minučių išryškinimas */
+.react-datepicker__time-box
+  ul.react-datepicker__time-list
+  li.react-datepicker__time-list-item:hover {
+  background-color: #d9480f;
+}

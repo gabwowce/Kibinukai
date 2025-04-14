@@ -1,8 +1,34 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import ProductsList from "./productsList";
 import { getMenuItems } from "@/services/wpAPI";
+import ErrorMessage from "@/components/ui/ErrorMessage";
+import Loading from "@/app/loading";
 
-export default async function ProductsListWrapper() {
-  const items = await getMenuItems();
+export default function ProductsListWrapper() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const data = await getMenuItems();
+        setItems(data);
+      } catch (err) {
+        console.error(err);
+        setError("Nepavyko gauti produktų. Patikrinkite serverį.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchItems();
+  }, []);
+
+  if (loading) return <Loading />;
+  if (error) return <ErrorMessage message={error} />;
 
   const priceMap = {};
 

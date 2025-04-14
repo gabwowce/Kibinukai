@@ -14,8 +14,14 @@ export default function Hero() {
       <Image
         src={groupKibinai}
         alt="Group of Kibinai"
+        width={300}
+        height={300}
+        sizes="(max-width: 768px) 200px, (max-width: 1024px) 250px, 300px"
+        priority
         className="hidden md:block absolute top-[-55px] left-[-50px] md:left-[-80px] lg:left-[-100px] w-[200px] md:w-[200px] lg:w-[250px] xl:w-[300px]"
+        draggable="false"
       />
+
       <div className="w-full md:w-1/2 xl:w-1/2">
         <div className="relative flex flex-col items-start justify-center py-10 md:py-0 h-auto md:h-[360px] lg:h-[500px]">
        

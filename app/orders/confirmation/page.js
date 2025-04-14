@@ -8,8 +8,8 @@ export default function Confirmation() {
     <section className="max-w-4xl mx-auto p-6 bg-[#FAF4EC] shadow-custom rounded-lg my-10">
       <Steps currentStep={3} />
 
-      <h2 className="text-2xl font-bold text-brown mb-6">Ačiū už užsakymą!</h2>
-      <p className="text-gray-700 mb-4">
+      <h2 className="text-2xl font-bold text-brown mb-4 text-center">Ačiū už užsakymą!</h2>
+      <p className="text-gray-700 mb-14 text-center">
         Gavome jūsų užsakymą ir netrukus su jumis susisieksime dėl patvirtinimo.
       </p>
       <a

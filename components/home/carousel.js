@@ -24,23 +24,19 @@ export default function Carousel() {
   // ✅ Pagrindinis useEffect su logais
   useEffect(() => {
     const fetchBanners = async () => {
-      console.log("🚀 Pradedam fetchinti banerius...");
       try {
         const data = await getBanners();
-        console.log("✅ API atsakymas:", data);
 
         const carouselBanners = data.filter(
           (banner) => banner.bannerType === "carousel"
         );
 
-        console.log("🎯 Filtruoti carousel baneriai:", carouselBanners);
 
         setBanners(carouselBanners);
       } catch (error) {
         console.error("❌ Nepavyko užkrauti banerių:", error);
       } finally {
         setIsLoading(false);
-        console.log("✅ Set isLoading į false");
       }
     };
 
@@ -58,7 +54,6 @@ export default function Carousel() {
           ? banners.length - 1
           : prevIndex - 1;
 
-      console.log(`👆 Swipas į ${delta < 0 ? "kairę" : "dešinę"}: ${nextIndex}`);
       return nextIndex;
     });
   };
@@ -68,7 +63,6 @@ export default function Carousel() {
     onSwipedRight: () => handleSwipe(1),
     onTap: (event) => {
       if (event.event.button === 0 && banners[currentIndex]?.link) {
-        console.log("🔗 Naviguojam į:", banners[currentIndex].link);
         router.push(banners[currentIndex].link);
       }
     },
@@ -98,9 +92,6 @@ export default function Carousel() {
     console.warn("⚠️ Banerių nėra!");
     return null;
   }
-
-  // ✅ Jeigu yra baneriai, renderinam karuselę!
-  console.log("🎉 Rodom karuselę su baneriais:", banners);
 
   return (
     <section className="w-full h-auto overflow-hidden sm:pb-10 md:pb-0 2xl:pb-20 z-20">
