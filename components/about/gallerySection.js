@@ -40,25 +40,26 @@ export default function GallerySection() {
     <section className="container mx-auto py-10 lg:py-20">
       <SectionTitle
         title="Galerija"
-        subtitle="Mūsų galerijoje rasite akimirkas iš įvairių renginių, mūsų **rankų darbo kibinų** bei 
-        kitos produkcijos, gamybos ir prekybos akimirkas. Stengiamės užtikrinti **aukščiausią kokybę**, 
-        todėl dalinamės šiais vaizdais su jumis! ✨"
+        subtitle="Mūsų galerijoje rasite akimirkas iš įvairių renginių, mūsų rankų darbo kibinų bei 
+        kitos produkcijos, gamybos ir prekybos akimirkas. Stengiamės užtikrinti aukščiausią kokybę, 
+        todėl dalinamės šiais vaizdais su jumis!"
       />
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6">
-        {galleryImages.map((img) => (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6">
+      {galleryImages.map((img) => (
+        <div key={img.id} className="relative w-full aspect-[2/3] rounded-lg overflow-hidden">
           <Image
-            key={img.id}
             src={img.image_url}
-            width={350}
-            height={200}
             alt={img.alt_text}
-            className="rounded-lg object-cover"
-  
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 30vw"
             loading="lazy"
           />
-        ))}
-      </div>
+        </div>
+      ))}
+    </div>
+
     </section>
   );
 }

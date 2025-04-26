@@ -1,8 +1,44 @@
 import nodemailer from "nodemailer";
+import { rateLimit } from "@/utils/rateLimit";
+import { headers } from "next/headers";
 
 export async function POST(request) {
+
+  const body = await request.json();
+
+  const { recaptchaToken, name, phone, email, contactType, orderType, deliveryType, address, deliveryDate, comments, cartItems } = body;
+
+  if (body.surname && body.surname.trim() !== "") {
+    return new Response("Bot activity detected", { status: 400 });
+  }
+  
+  if (!recaptchaToken) {
+    return new Response("reCAPTCHA token missing", { status: 400 });
+  }
+
+  const ip = headers().get("x-forwarded-for") || "unknown";
+
+  const allowed = rateLimit(ip, 30 * 1000); // 1 kartą per 30 sek.
+  if (!allowed) {
+    return new Response("Per daug užklausų. Palaukite šiek tiek.", { status: 429 });
+  }
+
+  const recaptchaRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+  });
+  const recaptchaData = await recaptchaRes.json();
+
+  if (!recaptchaData.success || (recaptchaData.score && recaptchaData.score < 0.5)) {
+    return new Response("reCAPTCHA verification failed", { status: 403 });
+  }
+
+
   try {
-    const { name, phone, email, contactType, orderType, deliveryType, address, deliveryDate, comments, cartItems } = await request.json();
+    
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -56,7 +92,7 @@ export async function POST(request) {
 
   <!-- Kontaktinė informacija lentelė -->
   <h3 style="margin-top: 30px;">Kontaktinė informacija</h3>
-  <table style="width: 60%; border-collapse: collapse; margin-bottom: 30px;">
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
     <tbody>
       <tr style="background-color: #fef3c7;">
         <td style="padding: 8px; border: 1px solid #ddd;"><strong>Vardas:</strong></td>
@@ -110,7 +146,7 @@ export async function POST(request) {
 
   <!-- Krepšelio turinys -->
   <h3>Krepšelio turinys</h3>
-  <table style="width: 60%; border-collapse: collapse;">
+  <table style="width: 100%; border-collapse: collapse;">
     <thead>
       <tr style="background-color: #f8f8f8;">
         <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Produktas</th>

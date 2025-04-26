@@ -37,7 +37,7 @@ export function OrderNow() {
             Užsisakyk jau dabar!
           </h3>
           <span className="text-outrageous-orange-400 text-h2 font-display font-bold -mt-2 xl:-mt-4">
-            +37067354631
+            +370 68020087
           </span>
         </div>
       </MessageFrame>

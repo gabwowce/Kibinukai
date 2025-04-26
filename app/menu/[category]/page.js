@@ -2,8 +2,8 @@ import CategoryPageClient from './CategoryPageClient';
 import Script from 'next/script';
 import { getMenuItems } from "@/services/wpAPI";
 
-export function generateMetadata({ params }) {
-  const category = params.category;
+export async function generateMetadata({ params }) {
+  const { category } = await params;
 
   const categoryData = {
     "kibinai": {
@@ -110,4 +110,17 @@ export default async function CategoryPage() {
       <CategoryPageClient />
     </>
   );
+}
+
+export function generateStaticParams() {
+  return [
+    { category: "kibinai" },
+    { category: "mini-kibinukai" },
+    { category: "saldyti" },
+    { category: "saldumynai" },
+    { category: "simtalapiai" },
+    { category: "sakociai" },
+    { category: "gerimai" },
+    { category: "uzkandziai" },
+  ];
 }

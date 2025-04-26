@@ -10,7 +10,7 @@ export default function OrderInfo({className}) {
         brown
         title="Užsakymų informacija"
         icon={FaClock}
-        description="Bendras užsakymų priėmimo laikas telefonu: 5:30 – 23:00 val."
+        description="Bendras užsakymų priėmimo laikas: 5:30 – 23:00 val."
         />
      
 

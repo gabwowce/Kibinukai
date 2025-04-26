@@ -60,30 +60,48 @@ export default function CategoryPageClient() {
     async function fetchCategories() {
       try {
         setError(false);
+  
+        const cachedCategories = localStorage.getItem('categories');
+        if (cachedCategories) {
+          const parsedCategories = JSON.parse(cachedCategories);
+          setCategories(parsedCategories);
+  
+          const matchedCategory = parsedCategories.find(cat => cat.slug === decodedCategory);
+          if (matchedCategory) {
+            setOriginCategory(matchedCategory.originCategory);
+            setDisplayCategoryName(matchedCategory.name);
+          } else {
+            setError(true);
+          }
+          return;
+        }
+  
         const data = await getMenuCategories();
         const filteredData = data.filter(cat => desiredOrder.includes(cat.slug));
-
         const sortedData = filteredData.sort(
           (a, b) => desiredOrder.indexOf(a.slug) - desiredOrder.indexOf(b.slug)
         );
   
         setCategories(sortedData);
-
-        const matchedCategory = data.find((cat) => cat.slug === decodedCategory);
+        localStorage.setItem('categories', JSON.stringify(sortedData));
+  
+        const matchedCategory = sortedData.find((cat) => cat.slug === decodedCategory);
         if (matchedCategory) {
           setOriginCategory(matchedCategory.originCategory);
           setDisplayCategoryName(matchedCategory.name);
         } else {
           setError(true);
         }
+  
       } catch (error) {
         console.error("Kategorijų gavimo klaida:", error);
         setError(true);
       }
     }
-
+  
     fetchCategories();
   }, [decodedCategory]);
+  
 
   useEffect(() => {
     if (!originCategory) return;
@@ -93,9 +111,18 @@ export default function CategoryPageClient() {
         setLoading(true);
         setError(false);
   
+        const cachedMenuItems = localStorage.getItem(`menuItems-${originCategory}`);
+        if (cachedMenuItems) {
+          setItems(JSON.parse(cachedMenuItems));
+          setLoading(false);
+          return;
+        }
+  
         const data = await getMenuItems();
         const filteredItems = data.filter((item) => item.kategorija === originCategory);
         setItems(filteredItems);
+        localStorage.setItem(`menuItems-${originCategory}`, JSON.stringify(filteredItems));
+  
       } catch (error) {
         console.error("Produktų gavimo klaida:", error);
         setError(true);
@@ -106,6 +133,7 @@ export default function CategoryPageClient() {
   
     fetchMenuItems();
   }, [originCategory]);
+  
   
   if (isError) {
     return (

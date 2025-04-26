@@ -43,8 +43,29 @@ export default function DeliveryInfo() {
       <InfoBlock
         icon={FaExternalLinkAlt}
         title="Užsakymų atsiėmimo laikas:"
-        description="Svetainėje www.negaminsiu.lt     |     Aplikacijoje „Bolt“"
-        />
+        description={
+          <>
+            Svetainėje{" "}
+            <a
+              href="https://www.negaminsiu.lt/gamintojas/kibinukai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#D9480F] underline font-semibold"
+            >
+              negaminsiu.lt
+            </a>{" "}
+            | Aplikacijoje{" "}
+            <a
+              href="https://food.bolt.eu/lt-LT/9-vilnius/p/57066-kibinukai-(%C5%ABm%C4%97d%C5%BEi%C5%B3-g.)"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#D9480F] underline font-semibold"
+            >
+              Bolt
+            </a>
+          </>
+        }
+      />
     </section>
   );
 }

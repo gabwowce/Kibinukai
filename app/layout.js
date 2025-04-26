@@ -69,7 +69,7 @@ export default function RootLayout({ children }) {
               "description": "Kibinai, desertai ir užkandžiai iš anksto užsakymui arba atsiėmimui kavinėje Vilniuje. Taip pat siūlome didelius užsakymus renginiams ir greitą pristatymą.",
               "url": "https://kibinukai.lt",
               "image": "https://kibinukai.lt/images/og-image.jpg",
-              "telephone": "+37065738267",
+              "telephone": "+37068020087",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Ūmedžių g. 10-2",
@@ -84,12 +84,18 @@ export default function RootLayout({ children }) {
                     "Tuesday",
                     "Wednesday",
                     "Thursday",
-                    "Friday",
-                    "Saturday"
+                    "Friday"
                   ],
+                  "opens": "11:00",
+                  "closes": "19:00"
+                },
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": "Saturday",
                   "opens": "10:00",
-                  "closes": "20:00"
+                  "closes": "15:00"
                 }
+                // Sekmadienis praleistas, nes nedirbate
               ],
               "servesCuisine": ["Lithuanian", "Pastries", "Coffee", "Snacks"],
               "acceptsReservations": "True",
@@ -105,6 +111,7 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
+
       </head>
       <body>
         <CartProvider>

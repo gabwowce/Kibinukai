@@ -5,7 +5,7 @@ const CUSTOM_API_BASE_URL = process.env.NEXT_PUBLIC_CUSTOM_API_BASE_URL;
 
 const API_MENU_ITEMS = `${WP_API_BASE_URL}/menu_items?per_page=100`;
 const API_MENU_CATEGORIES = `${WP_API_BASE_URL}/menu_category?per_page=100`;
-const API_GALLERY = `${WP_API_BASE_URL}/gallery`;
+const API_GALLERY = `${WP_API_BASE_URL}/gallery?per_page=100`;
 
 const API_BANNERS = `${CUSTOM_API_BASE_URL}/banners`;
 

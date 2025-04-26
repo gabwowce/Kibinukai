@@ -1,7 +1,6 @@
 "use client";
 
 import Modal from "@/components/ui/Modal";
-
 export default function CheckoutInfoModal({ isOpen, onClose }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -40,15 +39,24 @@ export default function CheckoutInfoModal({ isOpen, onClose }) {
             Rekomenduojame naudotis:{" "}
             <a
               className="text-[#D9480F] underline font-semibold"
-              href="https://www.negaminsiu.lt"
+              href="https://www.negaminsiu.lt/gamintojas/kibinukai"
               target="_blank"
               rel="noopener noreferrer"
             >
-              www.negaminsiu.lt
+              negaminsiu.lt
             </a>{" "}
-            arba programėle <strong>Bolt</strong>.
+            arba programėle{" "}
+            <a
+              className="text-[#D9480F] underline font-semibold"
+              href="https://food.bolt.eu/lt-LT/9-vilnius/p/57066-kibinukai-(%C5%ABm%C4%97d%C5%BEi%C5%B3-g.)"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Bolt Food
+            </a>.
           </p>
         </div>
+
 
       </div>
     </Modal>

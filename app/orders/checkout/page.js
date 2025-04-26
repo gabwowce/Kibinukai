@@ -2,11 +2,10 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from "next/navigation";
 import Steps from "@/components/orders/Steps";
-import { useState } from "react";
 import RadioGroup from "@/components/ui/RadioGroup";
 const CheckoutInfoModal = dynamic(() => import('@/components/orders/CheckoutInfoModal'), { ssr: false });
 import { useCart } from '@/context/cartContext';
-import { useEffect } from 'react';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const ReactDatePicker = dynamic(() => import("react-datepicker"), { ssr: false });
 
@@ -15,6 +14,9 @@ import "@/style/datepicker-custom.css";
 
 import UniversalInput from "@/components/forms/UniversalInput";
 import UniversalTextarea from "@/components/forms/UniversalTextarea";
+import { useRef, useState, useEffect } from "react";
+
+
 const AddressForm = dynamic(() => import('@/components/forms/AddressForm'), {
   ssr: false,
   loading: () => <p>Kraunama forma...</p>,
@@ -36,9 +38,13 @@ export default function CheckoutForm() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [comments, setComments] = useState("");
+
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const recaptchaRef = useRef(null);
   
 
   // Nauji state laukeliai adresui
@@ -64,6 +70,7 @@ export default function CheckoutForm() {
   
     // Griebiam reikalingus laukus
     const nameInput = e.target.elements.namedItem("name").value.trim();
+    const surnameInput = e.target.elements.namedItem("surname").value.trim();
     const phoneInput = e.target.elements.namedItem("phone").value.trim();
     const emailInput = e.target.elements.namedItem("email")?.value.trim();
     const commentsInput = e.target.elements.namedItem("comments")?.value;
@@ -115,31 +122,40 @@ export default function CheckoutForm() {
         : undefined,
       comments: commentsInput,
       cartItems: cart,
+      surname: surnameInput
     };
   
     try {
-      const response = await fetch("/api/send-email", {
+      if (!recaptchaToken) {
+        alert("Patvirtinkite, kad nesate robotas");
+        setIsSubmitting(false);
+        return;
+      }
+    
+      const response = await fetch(`${process.env.NEXT_PUBLIC_CUSTOM_API_BASE_URL}/send-email`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ ...formData, recaptchaToken })
       });
-  
+    
       const result = await response.json();
   
+    
       if (result.success) {
         e.target.reset();
         clearCart();
-        if (typeof window !== "undefined") {
-          localStorage.removeItem("cart");
-        }
+        localStorage.removeItem("cart");
         router.push("/orders/confirmation");
       } else {
         alert("Nepavyko išsiųsti užsakymo. Klaida: " + result.error);
       }
     } catch (error) {
-      console.error("Error sending email:", error);
-      alert("Įvyko klaida siunčiant užsakymą. Bandykite dar kartą.");
-    } finally {
+      console.error("❌ Error sending email:", error);
+      alert("Įvyko klaida siunčiant užsakymą: " + error.message);
+    }
+     finally {
       setIsSubmitting(false); // visada pabaigoje
     }
   };
@@ -182,6 +198,7 @@ export default function CheckoutForm() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
 
+
         {/* Vardas */}
         <UniversalInput
           label="Vardas"
@@ -195,6 +212,12 @@ export default function CheckoutForm() {
           error={errors.name}
         />
 
+        <UniversalInput
+          name="surname"
+          value={surname}
+          onChange={() => {}}
+          h
+        />
 
 
         {/* Telefono numeris */}
@@ -359,6 +382,12 @@ export default function CheckoutForm() {
           />
         )}
 
+
+        <ReCAPTCHA
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+          ref={recaptchaRef}
+          onChange={(token) => setRecaptchaToken(token)}
+        />
 
 
         {/* Submit */}

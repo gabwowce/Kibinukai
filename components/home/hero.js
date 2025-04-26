@@ -26,11 +26,11 @@ export default function Hero() {
         <div className="relative flex flex-col items-start justify-center py-10 md:py-0 h-auto md:h-[360px] lg:h-[500px]">
        
           <h1 className="pb-10">
-            Patys patys skaniausi&nbsp;
-            <span className="font-display font-bold text-outrageous-orange-400 drop-shadow-custom ">KIBINAI</span>
+          Paragauk tikro &nbsp;
+            <span className="font-display font-bold text-outrageous-orange-400 drop-shadow-custom ">SKONIO</span>
           </h1>
           <p className="text-h3 pb-10">
-            Polimori kolima aparastas hfkrok musu kurlsmifhshankfl ask akd hahanastytus
+          Užtikrinta kokybė ir šviežumas. Kapota mėsa, rankų darbo tešla – tikras skonis visoje Lietuvoje
           </p>
           
           <div className="flex flex-col w-full md:flex-row gap-4">

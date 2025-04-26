@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
 import { useCart } from "@/context/cartContext";
+import OrderInfo from "@/components/orders/orderInfo";
 
 export default function ProductModal({ item, onClose }) {
   const { addToCart } = useCart();
@@ -42,27 +43,42 @@ export default function ProductModal({ item, onClose }) {
           />
         )}
 
-        {/* Kiekio pasirinkimas su matavimo vienetu */}
-        <div className="flex items-center justify-center gap-3 mt-10">
-          <button
-            className="bg-gray-200 px-3 py-1 rounded-md"
-            onClick={() =>
-              setQuantity((prev) => Math.max(measureStep, prev - measureStep))
+      {/* Kiekio pasirinkimas su matavimo vienetu */}
+      <div className="flex items-center justify-center gap-3 mt-10">
+        <button
+          className="bg-gray-200 px-3 py-1 rounded-md"
+          onClick={() =>
+            setQuantity((prev) => Math.max(measureStep, prev - measureStep))
+          }
+        >
+          -
+        </button>
+
+        <input
+          type="number"
+          step={measureStep}
+          min={measureStep}
+          value={quantity}
+          onChange={(e) => {
+            const value = parseFloat(e.target.value);
+            if (!isNaN(value) && value >= measureStep) {
+              setQuantity(value);
             }
-          >
-            -
-          </button>
-          <span className="text-base xl:text-lg font-semibold">
-            {quantity} {item.matavimo_vienetas || "vnt."} {/* Matavimo vienetas */}
-          </span>
-          <button
-            className="bg-gray-200 px-3 py-1 rounded-md"
-            onClick={() => setQuantity((prev) => prev + measureStep)}
-          >
-            +
-          </button>
-          
-        </div>
+          }}
+          className="w-24 text-center text-base xl:text-lg font-semibold border border-gray-300 rounded-md py-1 appearance-none hide-number-arrows"
+        />
+
+
+        <span className="text-base">{item.matavimo_vienetas || "vnt."}</span>
+
+        <button
+          className="bg-gray-200 px-3 py-1 rounded-md"
+          onClick={() => setQuantity((prev) => prev + measureStep)}
+        >
+          +
+        </button>
+      </div>
+
 
         {/* Pridėti į krepšelį mygtukas */}
         <button
@@ -71,6 +87,7 @@ export default function ProductModal({ item, onClose }) {
         >
           Į KREPŠELĮ {(item.kaina * quantity).toFixed(2)} €
         </button>
+          <OrderInfo />
       </div>
     </div>
   );

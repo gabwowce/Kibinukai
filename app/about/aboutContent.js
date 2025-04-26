@@ -55,7 +55,7 @@
               <AboutArticle
                 className="w-full xl:w-2/3 pr-10"
                 highlightedWord="Kibinai"
-                title="– mūsų tradicija ir meistriškumas"
+                title="Kibinai – mūsų tradicija ir meistriškumas"
                 body="Jau daugiau nei 10 metų džiuginame savo klientus išskirtiniais kibinais, kuriuose tradicija dera 
                 su šiuolaikiniais skoniais. Nuo pirmosios dienos siekiame aukščiausios kokybės tiek gaminiuose, 
                 tiek aptarnavime. Atsižvelgdami į klientų norus, nuolat plečiame savo asortimentą – siūlome naujus įdarus, 
@@ -69,7 +69,7 @@
               <AboutArticle
                 className="w-full xl:w-2/3 xl:pl-10"
                 highlightedWord="Lankstumas"
-                title="– mūsų stiprybė"
+                title="Lankstumas – mūsų stiprybė"
                 body="Galime paruošti nuo vieno kibino iki kelių tūkstančių vienam užsakymui. 
                 Užtikriname patogų atsiėmimo ar pristatymo laiką – dirbame praktiškai 7/24, 
                 kad jūsų užsakymai būtų paruošti laiku. Jei reikia, pasirūpiname ne tik kibinais, bet ir sultiniu, 
@@ -81,8 +81,8 @@
             <div className="flex flex-col xl:flex-row">
               <AboutArticle
                 className="w-full xl:w-2/3 pr-10"
-                highlightedWord="Galimybes"
-                title="– Nuolat plečiame savo galimybes"
+                highlightedWord="galimybes"
+                title="Nuolat plečiame savo galimybes"
                 body="Siūlome lanksčias pristatymo sąlygas, pristatome kibinus ne tik Lietuvoje, bet ir į užsienį. 
                 Vertiname kiekvieną klientą ir prisitaikome prie jo poreikių, kad kiekvienas užsakymas būtų sklandus ir skanus!"
               />
