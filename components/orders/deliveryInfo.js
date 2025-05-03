@@ -42,7 +42,7 @@ export default function DeliveryInfo() {
       <p className="text-black-transparent70 py-6">Pristatymas Lietuvoje 100-150 km spinduliu.</p>
       <InfoBlock
         icon={FaExternalLinkAlt}
-        title="Užsakymų atsiėmimo laikas:"
+        title="Greitas pristatymas:"
         description={
           <>
             Svetainėje{" "}

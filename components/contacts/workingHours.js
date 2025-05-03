@@ -9,9 +9,9 @@ export default function WorkingHours({className}) {
       <h3 className="font-bold text-[#5A2D0C] text-lg">Kavinės darbo laikas</h3>
       <div className="px-16">
         <p className="mt-2 text-gray-800 leading-relaxed font-medium flex flex-col justify-center items-center">
-            <span className="block text-left">I-V <b>11:00-19:00</b></span>
-            <span className="block text-left">VI <b>10:00-15:00</b></span>
-            <span className="block font-semibold text-left">VII Nedirbame</span>
+            <span className="block text-left">I-V 11:00-19:00</span>
+            <span className="block text-left">VI 10:00-15:00</span>
+            <span className="block text-left">VII <b>Nedirbame</b></span>
         </p>
       </div>
       

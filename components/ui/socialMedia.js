@@ -16,7 +16,7 @@ export default function SocialMedia({forMobile, white}) {
                 />
             </a>
             <a 
-                href="https://messenger.com/jūsų-profilis" 
+                href="https://www.messenger.com/t/112388731472493" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Facebook Messenger"

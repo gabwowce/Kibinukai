@@ -23,11 +23,11 @@ export default function NavMenu({ className, onClick, white, bag }) {
                 Meniu
             </Link>
             <Link href="/about" prefetch={false} onClick={onClick}
-                className={`${white ? styles["item-white"]  : styles.item} ${pathname === '/about' ? (white ? styles["active-white"]  : styles.active) : ''}`}>
+                className={`${white ? styles["item-white"]  : styles.item} ${pathname === '/about/' ? (white ? styles["active-white"]  : styles.active) : ''}`}>
                 Apie mus
             </Link>
             <Link href="/contacts" prefetch={false} onClick={onClick}
-                className={`${white ? styles["item-white"]  : styles.item} ${pathname === '/contacts' ? (white ? styles["active-white"]  : styles.active) : ''}`}>
+                className={`${white ? styles["item-white"]  : styles.item} ${pathname === '/contacts/' ? (white ? styles["active-white"]  : styles.active) : ''}`}>
                 Kontaktai
             </Link>
 

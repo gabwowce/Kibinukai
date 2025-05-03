@@ -1,13 +1,41 @@
+
 import nodemailer from "nodemailer";
 import { rateLimit } from "@/utils/rateLimit";
-import { headers } from "next/headers";
-
 export async function POST(request) {
-
   const body = await request.json();
 
-  const { recaptchaToken, name, phone, email, contactType, orderType, deliveryType, address, deliveryDate, comments, cartItems } = body;
+  const {
+    recaptchaToken,
+    name,
+    phone,
+    email,
+    contactType,
+    orderType,
+    deliveryType,
+    address,
+    deliveryDate,
+    comments,
+    cartItems,
+    surname,
+  } = body;
 
+  if (surname?.trim()) {
+    return new Response("Bot activity detected", { status: 400 });
+  }
+
+  /* reCAPTCHA tokenas privalomas */
+  if (!recaptchaToken) {
+    return new Response("reCAPTCHA token missing", { status: 400 });
+  }
+
+  /* ① IP pasiimame iš request.headers ⇣ */
+  const ip = request.headers.get("x-forwarded-for") ?? "unknown";
+
+  /* Rate-limit */
+  const allowed = rateLimit(ip, 30_000); // 1 k./30 s
+  if (!allowed) {
+    return new Response("Per daug užklausų. Palaukite šiek tiek.", { status: 429 });
+  }
   if (body.surname && body.surname.trim() !== "") {
     return new Response("Bot activity detected", { status: 400 });
   }
@@ -16,12 +44,6 @@ export async function POST(request) {
     return new Response("reCAPTCHA token missing", { status: 400 });
   }
 
-  const ip = headers().get("x-forwarded-for") || "unknown";
-
-  const allowed = rateLimit(ip, 30 * 1000); // 1 kartą per 30 sek.
-  if (!allowed) {
-    return new Response("Per daug užklausų. Palaukite šiek tiek.", { status: 429 });
-  }
 
   const recaptchaRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
     method: "POST",
@@ -183,7 +205,7 @@ export async function POST(request) {
     await transporter.sendMail({
       from: `"Kibinukai Užsakymas" <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_USER,
-      subject: "Naujas užsakymas iš svetainės",
+      subject: "Naujas užsakymas iš KibinaiVilnius svetainės",
       html: emailHtmlContent,
     });
 

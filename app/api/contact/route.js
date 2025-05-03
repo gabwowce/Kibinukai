@@ -25,7 +25,7 @@ export async function POST(req) {
     }
 
 
-    const { name, email, message } = await req.json();
+    const { name, email, message } = body;
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -49,7 +49,7 @@ export async function POST(req) {
     await transporter.sendMail({
       from: `"Kontaktų forma" <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_USER,
-      subject: "Nauja žinutė iš kontaktų puslapio",
+      subject: "Nauja žinutė iš KibinaiVilnius svetainės",
       html: emailHtml,
     });
 

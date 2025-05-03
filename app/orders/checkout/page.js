@@ -132,7 +132,7 @@ export default function CheckoutForm() {
         return;
       }
     
-      const response = await fetch(`${process.env.NEXT_PUBLIC_CUSTOM_API_BASE_URL}/send-email`, {
+      const response = await fetch(`/api/send-email`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -16,7 +16,7 @@ export default function Cart({ forMobile, onClick, className, size }) {
             href="/orders" 
             prefetch={false} 
             onClick={onClick}
-            className={`${className ? className : "relative flex items-center"}  ${forMobile ? "" : pathname === "/orders" ? styles.active : ""}`}>
+            className={`${className ? className : "relative flex items-center"}  ${forMobile ? "" : pathname === "/orders/" ? styles.active : ""}`}>
             
             {/* Maišelio ikona */}
             <HiOutlineShoppingBag className='pb-1' size={size ? size : 30} />

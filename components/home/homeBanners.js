@@ -50,6 +50,7 @@ export default function Banners() {
           img={banner.desktopImage}
           imgMobile={banner.mobileImage}
           alt={banner.altText}
+          link={banner.link}
           className="hadow-custom md:shadow-none xl:shadow-custom"
         />
       ))}

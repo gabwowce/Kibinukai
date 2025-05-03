@@ -26,6 +26,11 @@ export default function ContactsClient() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!recaptchaToken) {
+      alert("Patvirtinkite, kad nesate robotas.");
+      return;
+    }
+  
     setStatus("idle");
   
     const name = nameRef.current?.value.trim() || "";
@@ -111,8 +116,6 @@ export default function ContactsClient() {
                 ref={recaptchaRef}
                 onChange={handleCaptcha}
                 />
-                
-
                 <Button
                     variant="smallVersion"
                     fullWidth

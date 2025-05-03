@@ -25,11 +25,11 @@ export default function Hero() {
       <div className="w-full md:w-1/2 xl:w-1/2">
         <div className="relative flex flex-col items-start justify-center py-10 md:py-0 h-auto md:h-[360px] lg:h-[500px]">
        
-          <h1 className="pb-10">
+          <h1 className="pb-5">
           Paragauk tikro &nbsp;
             <span className="font-display font-bold text-outrageous-orange-400 drop-shadow-custom ">SKONIO</span>
           </h1>
-          <p className="text-h3 pb-10">
+          <p className="text-h4 md:text-h3 pb-10">
           Užtikrinta kokybė ir šviežumas. Kapota mėsa, rankų darbo tešla – tikras skonis visoje Lietuvoje
           </p>
           

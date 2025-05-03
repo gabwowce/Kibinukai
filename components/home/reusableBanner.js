@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Banner({img, imgMobile, alt, className, classNameMobile, children}) {
-  return (
-    <section className="relative">
+export default function Banner({ img, imgMobile, alt, className, classNameMobile, children, link }) {
+  const content = (
+    <>
       <Image
         src={img}
         alt={alt}
@@ -15,7 +15,6 @@ export default function Banner({img, imgMobile, alt, className, classNameMobile,
         priority
         draggable="false"
       />
-
       <Image
         src={imgMobile}
         alt={alt}
@@ -27,9 +26,19 @@ export default function Banner({img, imgMobile, alt, className, classNameMobile,
         priority
         draggable="false"
       />
-  
-      {children}
-</section>
+    </>
+  );
 
+  return (
+    <section className="relative">
+      {link ? (
+        <Link href={link} className="block w-full h-full">
+          {content}
+        </Link>
+      ) : (
+        content
+      )}
+      {children}
+    </section>
   );
 }

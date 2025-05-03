@@ -4,6 +4,7 @@ import Image from "next/image";
 import { IoClose } from "react-icons/io5";
 import { useCart } from "@/context/cartContext";
 import OrderInfo from "@/components/orders/orderInfo";
+import { useEffect } from "react";
 
 export default function ProductModal({ item, onClose }) {
   const { addToCart } = useCart();
@@ -19,9 +20,19 @@ export default function ProductModal({ item, onClose }) {
     onClose();
   };
 
+  useEffect(() => {
+    // Kai modalas atsidaro – išjungi scroll
+    document.body.style.overflow = "hidden";
+
+    // Kai modalas užsidaro – grąžini scroll
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+  
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-5">
-      <div className="bg-white rounded-lg shadow-lg relative w-[700px] p-10">
+      <div className="bg-white rounded-lg shadow-lg relative w-full max-w-[700px] mx-4 p-6 sm:p-10 overflow-y-auto max-h-[90vh]">
         {/* Uždarymo mygtukas */}
         <button className="absolute top-3 right-3 text-gray-600 hover:text-gray-800" onClick={onClose}>
           <IoClose size={24} />
