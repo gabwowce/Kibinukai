@@ -1,4 +1,9 @@
-import { FaClock, FaMapMarkerAlt, FaShippingFast, FaExternalLinkAlt } from "react-icons/fa";
+import {
+  FaClock,
+  FaMapMarkerAlt,
+  FaShippingFast,
+  FaExternalLinkAlt,
+} from "react-icons/fa";
 import InfoBlock from "../orders/InfoBlock";
 import SectionHeader from "./SectionHeader";
 
@@ -6,11 +11,10 @@ export default function DeliveryInfo() {
   return (
     <section className="mx-auto p-6 my-8 ">
       <SectionHeader
-              title="Užsakymų ir pristatymo informacija"
-              icon={FaShippingFast}
-              description="Išankstiniai užsakymai vykdomi 7 / 24"
-            />
-      
+        title="Užsakymų ir pristatymo informacija"
+        icon={FaShippingFast}
+        description="Išankstiniai užsakymai vykdomi 7 / 24"
+      />
 
       <div className="space-y-4">
         <InfoBlock
@@ -39,7 +43,9 @@ export default function DeliveryInfo() {
           description="Į autobusų stoties siuntų skyrių nuo 5,00 €. (pastabų laukelyje nurodykite miestą)."
         />
       </div>
-      <p className="text-black-transparent70 py-6">Pristatymas Lietuvoje 100-150 km spinduliu.</p>
+      <p className="text-black-transparent70 py-6">
+        Pristatymas Lietuvoje 100-150 km spinduliu nuo Vilniaus.
+      </p>
       <InfoBlock
         icon={FaExternalLinkAlt}
         title="Greitas pristatymas:"

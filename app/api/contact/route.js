@@ -6,25 +6,38 @@ export async function POST(req) {
 
     const recaptchaToken = body.recaptchaToken;
     if (!recaptchaToken) {
-    return new Response("reCAPTCHA token missing", { status: 400 });
+      return new Response(
+        JSON.stringify({ success: false, error: "reCAPTCHA token missing" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     // Tikrinam pas Google
-    const recaptchaRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
-    });
+    const recaptchaRes = await fetch(
+      "https://www.google.com/recaptcha/api/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+      }
+    );
 
     const recaptchaData = await recaptchaRes.json();
-
+    console.log("‣ reCAPTCHA API atsakymas:", recaptchaData);
     if (!recaptchaData.success || recaptchaData.score < 0.5) {
-    return new Response("reCAPTCHA failed", { status: 403 });
+      return new Response(
+        JSON.stringify({ success: false, error: "reCAPTCHA failed" }),
+        {
+          status: 403,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
-
-
     const { name, email, message } = body;
 
     const transporter = nodemailer.createTransport({
@@ -56,6 +69,9 @@ export async function POST(req) {
     return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (err) {
     console.error("Klaida siunčiant kontaktų formą:", err);
-    return new Response(JSON.stringify({ success: false, error: err.message }), { status: 500 });
+    return new Response(
+      JSON.stringify({ success: false, error: err.message }),
+      { status: 500 }
+    );
   }
 }

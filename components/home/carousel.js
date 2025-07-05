@@ -26,11 +26,10 @@ export default function Carousel() {
     const fetchBanners = async () => {
       try {
         const data = await getBanners();
-
+        console.log("data" + data);
         const carouselBanners = data.filter(
           (banner) => banner.bannerType === "carousel"
         );
-
 
         setBanners(carouselBanners);
       } catch (error) {
@@ -71,21 +70,20 @@ export default function Carousel() {
 
   useEffect(() => {
     if (banners.length === 0) return;
-  
+
     resetTimeout();
-  
+
     timeoutRef.current = setTimeout(() => {
       setCurrentIndex((prevIndex) =>
         prevIndex === banners.length - 1 ? 0 : prevIndex + 1
       );
     }, delay);
-  
+
     return () => resetTimeout();
-  }, [currentIndex, banners.length]); 
-  
+  }, [currentIndex, banners.length]);
 
   if (isLoading) {
-    return <BannerSkeleton />; 
+    return <BannerSkeleton />;
   }
 
   if (banners.length === 0) {

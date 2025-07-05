@@ -1,58 +1,82 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
-// Sukuriame kontekstą
 const CartContext = createContext();
+const TTL = 24 * 60 * 60 * 1000; // 24 h milisekundėmis
+const STORAGE_KEY = "cart";
 
-// Konteksto teikėjas (provider)
+/* --- Provideris --- */
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
+  const [pulse, setPulse] = useState(false);
 
-  // Funkcija pridėti prekę į krepšelį
-  const addToCart = (item) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
+  /* 1️⃣ – įkeliame iš localStorage (tik kliente) */
+  useEffect(() => {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
 
-      if (existingItem) {
-        return prevCart.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + item.quantity } // Vietoj 1 pridedame pasirinktą kiekį
-            : cartItem
-        );
+    try {
+      const { savedAt, items } = JSON.parse(raw);
+      const expired = Date.now() - savedAt > TTL;
+
+      if (!expired && Array.isArray(items)) {
+        setCart(items);
       } else {
-        return [...prevCart, { ...item }];
+        localStorage.removeItem(STORAGE_KEY); // pasenę – išmetam
       }
-    });
-  };
+    } catch {
+      localStorage.removeItem(STORAGE_KEY); // sugadinti duomenys
+    }
+  }, []);
 
-  // Funkcija pašalinti prekę iš krepšelio
-  const removeFromCart = (id) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-  };
-
-  // Funkcija keisti prekės kiekį
-  const updateQuantity = (id, quantity) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === id ? { ...item, quantity } : item
-      )
+  /* 2️⃣ – saugome kaskart, kai cart keičiasi */
+  useEffect(() => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ savedAt: Date.now(), items: cart })
     );
+  }, [cart]);
+
+  /* --- helper-funkcijos --- */
+  const addToCart = (item) => {
+    setCart((prev) => {
+      const found = prev.find((i) => i.id === item.id);
+      return found
+        ? prev.map((i) =>
+            i.id === item.id
+              ? { ...i, quantity: i.quantity + item.quantity }
+              : i
+          )
+        : [...prev, { ...item }];
+    });
+    setPulse(true); // suveikia animacijai
+    setTimeout(() => setPulse(false), 600); // ~0.6 s
   };
 
-  // Krepšelio išvalymo funkcija
-  const clearCart = () => {
-    setCart([]);
-  };
+  const removeFromCart = (id) =>
+    setCart((prev) => prev.filter((i) => i.id !== id));
+
+  const updateQuantity = (id, quantity) =>
+    setCart((prev) => prev.map((i) => (i.id === id ? { ...i, quantity } : i)));
+
+  const clearCart = () => setCart([]);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        pulse,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
 }
 
-// Sukuriame hook'ą paprastam duomenų pasiekimui
-export function useCart() {
-  return useContext(CartContext);
-}
+/* --- custom hook --- */
+export const useCart = () => useContext(CartContext);

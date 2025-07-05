@@ -1,48 +1,25 @@
 "use client";
-
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import HeroSecondary from "@/components/heroSecondary";
-import { getMenuItems, getMenuCategories } from "@/services/wpAPI";
-import Loading from "@/app/loading";
 import MenuItems from "@/components/menu/Menu";
-import ErrorMessage from "@/components/ui/ErrorMessage"; // ✅ Importuojame klaidų komponentą
-
-import CategorySwitcher from "@/components/menu/CategorySwitcher"; // Importuojame naują komponentą
+import Loading from "@/app/loading";
+import ErrorMessage from "@/components/ui/ErrorMessage";
+import CategorySwitcher from "@/components/menu/CategorySwitcher";
 import Banner from "@/components/home/reusableBanner";
-import { getBanners } from "@/services/wpAPI";
-
+import { getMenuItems, getMenuCategories, getBanners } from "@/services/wpAPI";
+import { useCachedData } from "@/utils/useCachedData";
 
 export default function CategoryPageClient() {
+  // --- hydration guard (mounted) ---
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const { category } = useParams();
   const decodedCategory = decodeURIComponent(category);
   const router = useRouter();
 
-  const [categories, setCategories] = useState(null);
-  const [items, setItems] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-  const [isError, setError] = useState(false);
-  const [originCategory, setOriginCategory] = useState("");
-  const [displayCategoryName, setDisplayCategoryName] = useState(decodeURIComponent(category));
-  const [menuBanner, setMenuBanner] = useState(null);
-
-  useEffect(() => {
-    async function fetchMenuBanner() {
-      try {
-        const banners = await getBanners();
-        const menuBanner = banners.find((banner) => banner.bannerType === "menu");
-        if (menuBanner) {
-          setMenuBanner(menuBanner);
-        }
-      } catch (error) {
-        console.error("❌ Nepavyko užkrauti meniu banerio:", error);
-      }
-    }
-  
-    fetchMenuBanner();
-  }, []);
-
-  
+  // --- constante ---
   const desiredOrder = [
     "kibinai",
     "mini-kibinukai",
@@ -51,90 +28,55 @@ export default function CategoryPageClient() {
     "simtalapiai",
     "sakociai",
     "uzkandziai",
-    "gerimai"
-
-    
+    "gerimai",
   ];
-  
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        setError(false);
-  
-        const cachedCategories = localStorage.getItem('categories');
-        if (cachedCategories) {
-          const parsedCategories = JSON.parse(cachedCategories);
-          setCategories(parsedCategories);
-  
-          const matchedCategory = parsedCategories.find(cat => cat.slug === decodedCategory);
-          if (matchedCategory) {
-            setOriginCategory(matchedCategory.originCategory);
-            setDisplayCategoryName(matchedCategory.name);
-          } else {
-            setError(true);
-          }
-          return;
-        }
-  
-        const data = await getMenuCategories();
-        const filteredData = data.filter(cat => desiredOrder.includes(cat.slug));
-        const sortedData = filteredData.sort(
+
+  // hooks MUST be called unconditionally –
+  // we place them before any early return.
+
+  const { data: banners } = useCachedData("banners", getBanners);
+  const menuBanner = banners?.find((b) => b.bannerType === "menu") || null;
+
+  const {
+    data: categories,
+    loading: categoriesLoading,
+    error: categoriesError,
+  } = useCachedData(
+    "categories",
+    async () => {
+      const data = await getMenuCategories();
+      return data
+        .filter((c) => desiredOrder.includes(c.slug))
+        .sort(
           (a, b) => desiredOrder.indexOf(a.slug) - desiredOrder.indexOf(b.slug)
         );
-  
-        setCategories(sortedData);
-        localStorage.setItem('categories', JSON.stringify(sortedData));
-  
-        const matchedCategory = sortedData.find((cat) => cat.slug === decodedCategory);
-        if (matchedCategory) {
-          setOriginCategory(matchedCategory.originCategory);
-          setDisplayCategoryName(matchedCategory.name);
-        } else {
-          setError(true);
-        }
-  
-      } catch (error) {
-        console.error("Kategorijų gavimo klaida:", error);
-        setError(true);
-      }
-    }
-  
-    fetchCategories();
-  }, [decodedCategory]);
-  
+    },
+    [decodedCategory]
+  );
 
-  useEffect(() => {
-    if (!originCategory) return;
-  
-    async function fetchMenuItems() {
-      try {
-        setLoading(true);
-        setError(false);
-  
-        const cachedMenuItems = localStorage.getItem(`menuItems-${originCategory}`);
-        if (cachedMenuItems) {
-          setItems(JSON.parse(cachedMenuItems));
-          setLoading(false);
-          return;
-        }
-  
-        const data = await getMenuItems();
-        const filteredItems = data.filter((item) => item.kategorija === originCategory);
-        setItems(filteredItems);
-        localStorage.setItem(`menuItems-${originCategory}`, JSON.stringify(filteredItems));
-  
-      } catch (error) {
-        console.error("Produktų gavimo klaida:", error);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    }
-  
-    fetchMenuItems();
-  }, [originCategory]);
-  
-  
+  const matched = categories?.find((c) => c.slug === decodedCategory);
+  const originCategory = matched?.originCategory || "";
+  const displayCategoryName = matched?.name || decodedCategory;
+
+  const {
+    data: items,
+    loading: itemsLoading,
+    error: itemsError,
+  } = useCachedData(
+    `menuItems-${originCategory}`,
+    async () => {
+      if (!originCategory) return [];
+      const all = await getMenuItems();
+      return all.filter((i) => i.kategorija === originCategory);
+    },
+    [originCategory]
+  );
+
+  const isError = categoriesError || itemsError;
+
+  // --- early exit only after all hooks ---
+  if (!mounted) return null; // prevents hydration mismatch
+
   if (isError) {
     return (
       <main className="min-h-screen relative">
@@ -153,9 +95,7 @@ export default function CategoryPageClient() {
     );
   }
 
-  if (!categories) {
-    return <Loading />;
-  }
+  if (categoriesLoading || !categories) return <Loading />;
 
   return (
     <main>
@@ -169,46 +109,23 @@ export default function CategoryPageClient() {
       />
 
       <div className="container mx-auto pb-6 flex flex-col items-center justify-center">
-        <div className="flex flex-row-reverse justify-center items-center flex-wrap w-full relative mb-5">
-          {categories.length > 0 ? (
-            categories.map(({ name, slug, image }, index) => {
-              const paddingTopValues = ["10px", "5px", "2px", "0px", "0px", "2px", "5px", "10px"];
-
-              return (
-                <div
-                  key={slug}
-                  className="flex flex-col items-center"
-                  style={{
-                    paddingTop: paddingTopValues[index % paddingTopValues.length], 
-                  }}
-                >
-                  
-                </div>
-              );
-            })
-          ) : (
-            <p className="text-center text-gray-500">Kategorijų nerasta.</p>
-          )}
-        </div>
-
-        {/* Kategorijų perjungimo mygtukai atskirame komponente */}
-        <CategorySwitcher categories={categories} decodedCategory={decodedCategory} router={router} />
-
-
-        {isLoading ? <Loading /> : <MenuItems items={items} />}
+        <CategorySwitcher
+          categories={categories}
+          decodedCategory={decodedCategory}
+          router={router}
+        />
+        {itemsLoading ? <Loading /> : <MenuItems items={items || []} />}
       </div>
+
       {menuBanner && (
         <section className="container w-full h-auto overflow-hidden mt-10">
           <Banner
             img={menuBanner.desktopImage}
             imgMobile={menuBanner.mobileImage}
             alt={menuBanner.altText}
-          >
-            {/* Galima pridėti ir papildomą turinį, jei reikia */}
-          </Banner>
+          />
         </section>
       )}
-
     </main>
   );
 }
