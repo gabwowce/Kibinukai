@@ -1,7 +1,7 @@
 import Image from "next/image";
-import arrowSm from "@/public/assets/products/arrow-sm.png";
 import { useTailwindBreakpoints } from "@/components/useBreakpoint";
 
+const arrowSm = "/assets/products/arrow-sm.png";
 const CategoryButton = ({ category, imageSrc, isActive, onClick, right }) => {
   const { isXlUp } = useTailwindBreakpoints();
 
@@ -9,38 +9,46 @@ const CategoryButton = ({ category, imageSrc, isActive, onClick, right }) => {
     <button
       onClick={onClick}
       className={`relative flex items-center p-3 transition-all duration-300 ${
-        isActive ? "scale-110 font-bold flex-col" : "opacity-50 hover:opacity-100 flex-col"
+        isActive
+          ? "scale-110 font-bold flex-col"
+          : "opacity-50 hover:opacity-100 flex-col"
       }`}
     >
       {/* Kategorijos pavadinimas */}
 
-      
-      
-
-      <div className={`flex ${right ? "flex-row" : "flex-row-reverse"} items-end gap-5 ${isActive ? (right ? "xl:absolute top-[-20px] left-[-50px]" : "xl:absolute top-[-20px] right-[-50px]")  : ""}`}>
-        <span className={` text-sm md:text-base font-display ${isActive ? "text-black" : "text-gray-500"}`}>
+      <div
+        className={`flex ${
+          right ? "flex-row" : "flex-row-reverse"
+        } items-end gap-5 ${
+          isActive
+            ? right
+              ? "xl:absolute top-[-20px] left-[-50px]"
+              : "xl:absolute top-[-20px] right-[-50px]"
+            : ""
+        }`}
+      >
+        <span
+          className={` text-sm md:text-base font-display ${
+            isActive ? "text-black" : "text-gray-500"
+          }`}
+        >
           {category}
         </span>
 
-        {
-          isXlUp && isActive && (
-            <Image
-              src={arrowSm || "/placeholder.jpg"}
-              alt={category}
-              width={10}
-              height={10}
-              objectFit="cover"
-              sizes="10px"
-              className={`${right ? "rotate-[100deg]" : "rotate-[250deg] scale-x-[-1]"}`}
-            />
-          )
-        }
-
-
-        
-        
+        {isXlUp && isActive && (
+          <Image
+            src={arrowSm || "/placeholder.jpg"}
+            alt={category}
+            width={10}
+            height={10}
+            objectFit="cover"
+            sizes="10px"
+            className={`${
+              right ? "rotate-[100deg]" : "rotate-[250deg] scale-x-[-1]"
+            }`}
+          />
+        )}
       </div>
-      
 
       <div
         className={` w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden ${
@@ -56,8 +64,6 @@ const CategoryButton = ({ category, imageSrc, isActive, onClick, right }) => {
           objectFit="cover"
         />
       </div>
-
-      
     </button>
   );
 };

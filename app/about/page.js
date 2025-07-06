@@ -1,10 +1,13 @@
 export const metadata = {
+  metadataBase: new URL("https://kibinaivilnius.lt"),
   title: "Apie mus - Kibinai Vilniuje",
-  description: "Jau daugiau nei 10 metų džiuginame klientus išskirtiniais kibinais. Sužinokite daugiau apie mūsų tradicijas, meistriškumą ir lankstumą.",
+  description:
+    "Jau daugiau nei 10 metų džiuginame klientus išskirtiniais kibinais. Sužinokite daugiau apie mūsų tradicijas, meistriškumą ir lankstumą.",
   openGraph: {
     title: "Apie mus - Kibinukai Vilniuje",
-    description: "Sužinokite, kaip gaminame skaniausius kibinus Vilniuje ir kaip prisitaikome prie klientų poreikių.",
-    url: "https://kibinukai.lt/about",
+    description:
+      "Sužinokite, kaip gaminame skaniausius kibinus Vilniuje ir kaip prisitaikome prie klientų poreikių.",
+    url: "https://kibinaivilnius.lt/about",
     siteName: "Kibinukai Vilniuje",
     images: [
       {
@@ -17,7 +20,7 @@ export const metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://kibinukai.lt/about",
+    canonical: "https://kibinaivilnius.lt/about",
   },
   robots: {
     index: true,
@@ -26,7 +29,7 @@ export const metadata = {
   },
 };
 
-import AboutContent from './aboutContent';
+import AboutContent from "./aboutContent";
 
 export default function AboutPage() {
   return <AboutContent />;

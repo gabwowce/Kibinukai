@@ -1,38 +1,47 @@
 import Image from "next/image";
-import arrow from "@/public/assets/products/arrow.png";
-import arrowSm from "@/public/assets/products/arrow-sm.png";
 import Price from "./price";
 import Link from "next/link";
 
+const arrow = "/assets/products/arrow.png";
+const arrowSm = "/assets/products/arrow-sm.png";
 
-export default function Product({title, desc, img, index, mode, isMdUp, price, unit, slug}) {
-  const finalMode = isMdUp ? mode : (index % 2 === 0 ? 0 : 1);
+export default function Product({
+  title,
+  desc,
+  img,
+  index,
+  mode,
+  isMdUp,
+  price,
+  unit,
+  slug,
+}) {
+  const finalMode = isMdUp ? mode : index % 2 === 0 ? 0 : 1;
 
   let containerClass = "";
   let arrowClass = "";
   let priceStyle = {};
   let priceStyle2 = {};
   let imgClass = "";
-  
 
   switch (finalMode) {
     case 0:
       containerClass = "flex-col";
-      imgClass= "flex-col"
+      imgClass = "flex-col";
       arrowClass = "";
       priceStyle = { transform: "rotate(-30deg)" };
       priceStyle2 = "top-0 ";
       break;
     case 1:
       containerClass = "flex-col-reverse";
-      imgClass= "flex-col-reverse items-end"
+      imgClass = "flex-col-reverse items-end";
       arrowClass = "rotate-180 pb-4";
       priceStyle = { transform: "rotate(30deg)" };
       priceStyle2 = "botton-0 ";
       break;
     case 2:
       containerClass = "flex-col";
-      imgClass= "flex-col items-end";
+      imgClass = "flex-col items-end";
       arrowClass = "scale-x-[-1]";
       priceStyle = { transform: "rotate(-30deg)" };
       priceStyle2 = "";
@@ -41,7 +50,9 @@ export default function Product({title, desc, img, index, mode, isMdUp, price, u
 
   return (
     <Link href={`/menu/${slug.toLowerCase()}`} className="block">
-      <div className={`flex ${containerClass} items-center text-center p-2 cursor-pointer`}>
+      <div
+        className={`flex ${containerClass} items-center text-center p-2 cursor-pointer`}
+      >
         <div className={` relative flex ${imgClass}`}>
           <Image
             src={img}
@@ -71,16 +82,17 @@ export default function Product({title, desc, img, index, mode, isMdUp, price, u
             sizes="20px"
             className={`hidden md:block ${arrowClass}`}
           />
-          <div className={`absolute -right-8 ${priceStyle2}`} style={priceStyle}>
+          <div
+            className={`absolute -right-8 ${priceStyle2}`}
+            style={priceStyle}
+          >
             <Price price={price} unit={unit} />
           </div>
         </div>
 
         <div>
           <h3 className="font-bold font-display text-brown">{title}</h3>
-          <p className="text-gray-700 text-sm w-40 lg:w-60 leading-4">
-            {desc}
-          </p>
+          <p className="text-gray-700 text-sm w-40 lg:w-60 leading-4">{desc}</p>
         </div>
       </div>
     </Link>

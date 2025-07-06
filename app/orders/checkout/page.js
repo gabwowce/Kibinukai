@@ -27,6 +27,7 @@ const AddressForm = dynamic(() => import("@/components/forms/AddressForm"), {
 });
 
 export default function CheckoutForm() {
+  const PHP_API_ORDER = process.env.NEXT_PUBLIC_PHP_API_ORDER;
   const router = useRouter();
   const { clearCart, cart } = useCart();
 
@@ -137,13 +138,16 @@ export default function CheckoutForm() {
         return;
       }
 
-      const response = await fetch(`/api/send-email`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...formData, recaptchaToken }),
-      });
+      const response = await fetch(
+        "https://api.kibinaivilnius.lt/wp-json/kibinukai/v1/order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...formData, recaptchaToken }),
+        }
+      );
 
       const result = await response.json();
 

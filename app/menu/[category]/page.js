@@ -1,54 +1,60 @@
-import CategoryPageClient from './CategoryPageClient';
-import Script from 'next/script';
+import CategoryPageClient from "./CategoryPageClient";
+import Script from "next/script";
 import { getMenuItems } from "@/services/wpAPI";
 
 export async function generateMetadata({ params }) {
   const { category } = await params;
 
   const categoryData = {
-    "kibinai": {
+    kibinai: {
       title: "Kibinai - skaniausi kibinai Vilniuje",
-      description: "Ragaukite tradicinius ir sultingus kibinus, gaminamus pagal autentiškus receptus mūsų kepyklėlėje Vilniuje.",
+      description:
+        "Ragaukite tradicinius ir sultingus kibinus, gaminamus pagal autentiškus receptus mūsų kepyklėlėje Vilniuje.",
       image: "/images/kibinai.jpg",
     },
     "mini-kibinukai": {
       title: "Mini kibinukai - mažos, bet skanios užkandėlės",
-      description: "Puikus pasirinkimas vakarėliams ar kasdieniam užkandžiui – mažieji kibinukai nustebins savo skoniu.",
+      description:
+        "Puikus pasirinkimas vakarėliams ar kasdieniam užkandžiui – mažieji kibinukai nustebins savo skoniu.",
       image: "/images/mini-kibinukai.jpg",
     },
-    "saldyti": {
+    saldyti: {
       title: "Šaldyti produktai - patogumas Jūsų virtuvėje",
-      description: "Šaldyti kibinai ir kiti produktai – greitam ir patogiam pasiruošimui namuose.",
+      description:
+        "Šaldyti kibinai ir kiti produktai – greitam ir patogiam pasiruošimui namuose.",
       image: "/images/saldyti.jpg",
     },
-    "saldumynai": {
+    saldumynai: {
       title: "Saldumynai - saldūs skanėstai kiekvienai progai",
-      description: "Pasimėgaukite mūsų desertais ir saldžiais kepiniais, pagamintais su meile.",
+      description:
+        "Pasimėgaukite mūsų desertais ir saldžiais kepiniais, pagamintais su meile.",
       image: "/images/saldumynai.jpg",
     },
-    "simtalapiai": {
+    simtalapiai: {
       title: "Šimtalapiai - tradicinis lietuviškas desertas",
-      description: "Skanausite tikro lietuviško šimtalapio – ypatingo deserto ypatingoms progoms.",
+      description:
+        "Skanausite tikro lietuviško šimtalapio – ypatingo deserto ypatingoms progoms.",
       image: "/images/simtalapiai.jpg",
     },
-    "sakociai": {
+    sakociai: {
       title: "Šakočiai - šventiniai pyragai Jūsų stalui",
-      description: "Tradiciniai lietuviški šakočiai – puošnus desertas šventėms ir vaišėms.",
+      description:
+        "Tradiciniai lietuviški šakočiai – puošnus desertas šventėms ir vaišėms.",
       image: "/images/sakociai.jpg",
     },
-    "gerimai": {
+    gerimai: {
       title: "Gėrimai - gaivūs ir gardūs pasirinkimai",
-      description: "Pasirinkite gaivinančius gėrimus prie mūsų gardžių kepinių.",
+      description:
+        "Pasirinkite gaivinančius gėrimus prie mūsų gardžių kepinių.",
       image: "/images/gerimai.jpg",
     },
-    "uzkandziai": {
+    uzkandziai: {
       title: "Užkandžiai - skanūs pasirinkimai bet kokiai progai",
-      description: "Atraskite mūsų užkandžių asortimentą – nuo klasikinių iki gurmaniškų.",
+      description:
+        "Atraskite mūsų užkandžių asortimentą – nuo klasikinių iki gurmaniškų.",
       image: "/images/uzkandziai.jpg",
     },
   };
-  
-  
 
   const categoryInfo = categoryData[category] || {
     title: "Meniu - Kibinai Vilniuje",
@@ -87,20 +93,24 @@ export default async function CategoryPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "name": "Produktai - Kibinukai Vilniuje",
-            "itemListElement": menuItems.map((item, index) => ({
+            name: "Produktai - Kibinukai Vilniuje",
+            itemListElement: menuItems.map((item, index) => ({
               "@type": "Product",
-              "name": item.pavadinimas,
-              "description": item.aprasymas || "Skanus rankų darbo kibinas.",
-              "image": item.nuotrauka || "https://kibinukai.lt/images/default-product.jpg",
-              "url": `https://kibinukai.lt/menu/${item.kategorijaSlug || ''}`,
-              "offers": {
+              name: item.pavadinimas,
+              description: item.aprasymas || "Skanus rankų darbo kibinas.",
+              image:
+                item.nuotrauka ||
+                "https://kibinaivilnius.lt//images/default-product.jpg",
+              url: `https://kibinaivilnius.lt//menu/${
+                item.kategorijaSlug || ""
+              }`,
+              offers: {
                 "@type": "Offer",
-                "priceCurrency": "EUR",
-                "price": item.kaina,
-                "availability": "https://schema.org/InStock",
+                priceCurrency: "EUR",
+                price: item.kaina,
+                availability: "https://schema.org/InStock",
               },
-              "position": index + 1,
+              position: index + 1,
             })),
           }),
         }}

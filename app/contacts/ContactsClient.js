@@ -9,10 +9,10 @@ import WorkingHours from "@/components/contacts/workingHours";
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default function ContactsClient() {
-    const nameRef = useRef(null);
-    const emailRef = useRef(null);
-    const messageRef = useRef(null);
-    
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const messageRef = useRef(null);
+
   const [status, setStatus] = useState("idle");
 
   const recaptchaRef = useRef(null);
@@ -21,8 +21,6 @@ export default function ContactsClient() {
   const handleCaptcha = (token) => {
     setRecaptchaToken(token);
   };
-  
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,32 +28,34 @@ export default function ContactsClient() {
       alert("Patvirtinkite, kad nesate robotas.");
       return;
     }
-  
+
     setStatus("idle");
-  
+
     const name = nameRef.current?.value.trim() || "";
     const email = emailRef.current?.value.trim() || "";
     const message = messageRef.current?.value.trim() || "";
-  
-    setStatus("loading");
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, message, recaptchaToken }),
 
-    });
-  
-    if (!recaptchaToken) {
-        alert("Patvirtinkite, kad nesate robotas.");
-        return;
+    setStatus("loading");
+    const res = await fetch(
+      "https://api.kibinaivilnius.lt/wp-json/kibinukai/v1/contact",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message, recaptchaToken }),
       }
-      
+    );
+
+    if (!recaptchaToken) {
+      alert("Patvirtinkite, kad nesate robotas.");
+      return;
+    }
+
     if (res.ok) {
       setStatus("success");
       if (nameRef.current) nameRef.current.value = "";
       if (emailRef.current) emailRef.current.value = "";
       if (messageRef.current) messageRef.current.value = "";
-  
+
       // ✅ Rodom naršyklės popup
       window.alert("Žinutė sėkmingai išsiųsta!");
     } else {
@@ -63,7 +63,6 @@ export default function ContactsClient() {
       window.alert("Įvyko klaida siunčiant žinutę. Bandykite dar kartą.");
     }
   };
-  
 
   return (
     <main className="overflow-hidden relative">
@@ -72,15 +71,23 @@ export default function ContactsClient() {
           title="Kontaktai"
           breadcrumb={[
             { label: "Pagrindinis", href: "/" },
-            { label: "Kontaktai", href: "/contacts" }
+            { label: "Kontaktai", href: "/contacts" },
           ]}
         />
         <BubbleBackground left />
         <BubbleBackground right />
-        <ContactInfo bigText bigIcons className="hidden lg:flex flex-row justify-center gap-20 font-semibold py-20" />
+        <ContactInfo
+          bigText
+          bigIcons
+          className="hidden lg:flex flex-row justify-center gap-20 font-semibold py-20"
+        />
 
         <div className="flex lg:hidden flex-col md:flex-row justify-between items-center">
-          <ContactInfo bigText bigIcons className="flex flex-col lg:flex-row gap-20 font-semibold py-10 md:py-20" />
+          <ContactInfo
+            bigText
+            bigIcons
+            className="flex flex-col lg:flex-row gap-20 font-semibold py-10 md:py-20"
+          />
           <WorkingHours className="flex flex-col lg:hidden" />
         </div>
 
@@ -89,43 +96,44 @@ export default function ContactsClient() {
 
           {/* Kontaktų forma */}
           <div className="w-full lg:w-2/3">
-            <h2 className="text-2xl font-bold text-brown font-display mb-4">Susisiekite</h2>
+            <h2 className="text-2xl font-bold text-brown font-display mb-4">
+              Susisiekite
+            </h2>
             <form className="space-y-4" onSubmit={handleSubmit}>
-                <input
-                    ref={nameRef}
-                    type="text"
-                    placeholder="Vardas"
-                    required
-                    className="bg-gray-200 w-full p-3 border rounded-xl"
-                />
-                <input
-                    ref={emailRef}
-                    type="email"
-                    placeholder="El. Paštas"
-                    required
-                    className="bg-gray-200 w-full p-3 border rounded-xl"
-                />
-                <textarea
-                    ref={messageRef}
-                    placeholder="Jūsų žinutė"
-                    required
-                    className="bg-gray-200 w-full p-3 border rounded-xl h-32"
-                />
-                <ReCAPTCHA
+              <input
+                ref={nameRef}
+                type="text"
+                placeholder="Vardas"
+                required
+                className="bg-gray-200 w-full p-3 border rounded-xl"
+              />
+              <input
+                ref={emailRef}
+                type="email"
+                placeholder="El. Paštas"
+                required
+                className="bg-gray-200 w-full p-3 border rounded-xl"
+              />
+              <textarea
+                ref={messageRef}
+                placeholder="Jūsų žinutė"
+                required
+                className="bg-gray-200 w-full p-3 border rounded-xl h-32"
+              />
+              <ReCAPTCHA
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                 ref={recaptchaRef}
                 onChange={handleCaptcha}
-                />
-                <Button
-                    variant="smallVersion"
-                    fullWidth
-                    type="submit"
-                    disabled={status === "loading"}
-                >
-                    {status === "loading" ? "Siunčiama..." : "SIŲSTI"}
-                </Button>
-                </form>
-
+              />
+              <Button
+                variant="smallVersion"
+                fullWidth
+                type="submit"
+                disabled={status === "loading"}
+              >
+                {status === "loading" ? "Siunčiama..." : "SIŲSTI"}
+              </Button>
+            </form>
           </div>
         </section>
 

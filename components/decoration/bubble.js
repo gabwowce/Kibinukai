@@ -1,6 +1,4 @@
 import Image from "next/image";
-import elipse from "@/public/assets/Ellipse1.png";
-
 
 export default function Bubble() {
   return (
@@ -14,7 +12,7 @@ export default function Bubble() {
       "
     >
       <Image
-        src={elipse}
+        src="/assets/Ellipse1.png"
         alt="Burbulas"
         fill
         sizes="(max-width: 768px) 500px, (max-width: 1200px) 800px, 1000px"
