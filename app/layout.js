@@ -9,7 +9,7 @@ import Script from "next/script";
 
 export const metadata = {
   metadataBase: new URL("https://kibinaivilnius.lt"),
-  title: "Kibinai Vilniuje - skaniausi kibinai ir skanėstai",
+  title: "Kibinukai / Kibinai Vilniuje",
   description:
     "Užsisakykite kibinus internetu arba užsukite į mūsų kavinę Vilniuje. Greitas pristatymas, kokybė ir tradicijos viename!",
   openGraph: {
@@ -17,11 +17,11 @@ export const metadata = {
     description:
       "Užsisakykite kibinus internetu arba užsukite į mūsų kavinę Vilniuje. Greitas pristatymas, kokybė ir tradicijos viename!",
     url: "https://kibinaivilnius.lt/",
-    siteName: "Kibinukai Vilniuje",
+    siteName: "Kibinai Vilniuje",
     images: [
       {
         url: "https://suse-prize-llp-legislation.trycloudflare.com/kibinukaiMain2.png",
-        alt: "Kibinukai ir skanėstai iš Vilniaus kavinės",
+        alt: "Kibinai ir skanėstai iš Vilniaus kavinės",
         width: 1200,
         height: 630,
       },
@@ -73,6 +73,9 @@ export default function RootLayout({ children }) {
         />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#ffffff" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="max-image-preview:large" />
+
 
         {/* Schema.org structured data */}
         <Script

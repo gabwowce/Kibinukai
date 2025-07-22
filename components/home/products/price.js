@@ -6,7 +6,7 @@ export default function Price({ price, unit = "vnt." }) {
     <div className="relative h-auto w-20 lg:w-24 xl:w-28">
       <Image
         src={priceFrame}
-        alt=""
+        alt="Kainos oranžinis fonas"
         width={112} // ~w-28 klasė (7rem = 112px)
         height={112} // Aspect ratio — jei frame yra kvadratinis
         sizes="(max-width: 768px) 80px, (max-width: 1024px) 96px, 112px"

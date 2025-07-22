@@ -23,7 +23,7 @@ export function OrderNow() {
       <div className="flex-shrink-0">
         <Image
           src={phoneIcon}
-          alt="Yellow phone call icon"
+          alt="Geltona telefono ikonelė"
           width={64}
           height={64}
           className="w-10 h-10 lg:w-14 lg:h-14 xl:w-16 xl:h-16"
@@ -50,35 +50,35 @@ export function Rating() {
       <div className="inline-flex items-center justify-center space-x-1 lg:space-x-2">
         <Image
           src={star}
-          alt=""
+          alt="žvaigždės ikonėlė"
           width={24}
           height={24}
           className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
         />
         <Image
           src={star}
-          alt=""
+          alt="žvaigždės ikonėlė"
           width={24}
           height={24}
           className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
         />
         <Image
           src={star}
-          alt=""
+          alt="žvaigždės ikonėlė"
           width={24}
           height={24}
           className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
         />
         <Image
           src={star}
-          alt=""
+          alt="žvaigždės ikonėlė"
           width={24}
           height={24}
           className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
         />
         <Image
           src={star}
-          alt=""
+          alt="žvaigždės ikonėlė"
           width={24}
           height={24}
           className="w-4 h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7"
